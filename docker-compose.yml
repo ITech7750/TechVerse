@@ -1,21 +1,5 @@
 version: '3.8'
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8081:8080"
-    depends_on:
-      - db
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3307/app_db?useSSL=false&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: 1357
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-    networks:
-      - backend
-
   db:
     image: mysql:5.7
     ports:
