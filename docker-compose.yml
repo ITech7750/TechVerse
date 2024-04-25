@@ -13,6 +13,29 @@ services:
       - db-data:/var/lib/mysql
     networks:
       - backend
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uadmin -p1357" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/app_db?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: 1357
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    networks:
+      - backend
 
 networks:
   backend:
