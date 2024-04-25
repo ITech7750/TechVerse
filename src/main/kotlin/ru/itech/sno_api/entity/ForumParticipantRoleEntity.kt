@@ -1,5 +1,6 @@
 package ru.itech.sno_api.entity
 import jakarta.persistence.*
+import ru.itech.sno_api.dto.ForumParticipantRoleDTO
 
 
 @Entity
@@ -15,3 +16,10 @@ class ForumParticipantRoleEntity(
     @Column(name = "role_name")
     var roleName: String = ""
 )
+fun ForumParticipantRoleEntity.toDTO(): ForumParticipantRoleDTO {
+    return ForumParticipantRoleDTO(
+        roleId = this.roleId,
+        participant = this.participant.toDTO(), // Убедитесь, что у participant Entity есть метод toDTO()
+        roleName = this.roleName
+    )
+}

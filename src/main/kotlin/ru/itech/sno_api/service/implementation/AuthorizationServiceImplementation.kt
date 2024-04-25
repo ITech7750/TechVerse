@@ -2,65 +2,51 @@ package ru.itech.sno_api.service.implementation
 
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import ru.itech.sno_api.dto.AuthorizationDTO
-import ru.itech.sno_api.dto.toDTO
+import ru.itech.sno_api.dto.toEntity
 import ru.itech.sno_api.entity.AuthorizationEntity
-import ru.itech.sno_api.entity.toEntity
 import ru.itech.sno_api.repository.AuthorizationRepository
+import ru.itech.sno_api.repository.UserInfoRepository
 import ru.itech.sno_api.service.AuthorizationService
 
 @Service
-class AuthorizationServiceImplementation(
-    private val authorizationRepository: AuthorizationRepository
-): AuthorizationService {
+@Transactional
+open class AuthorizationServiceImplementation(
+    private val authorizationRepository: AuthorizationRepository,
+    private val userInfoRepository: UserInfoRepository // Assuming you need to fetch user info entities
+) : AuthorizationService {
 
     override fun getAll(): List<AuthorizationDTO> {
-        return authorizationRepository.findAll()
-            .map { it.toDTO() }
+        return authorizationRepository.findAll().map { it.toDTO() }
     }
 
     override fun getById(authId: Long): AuthorizationDTO {
-        return authorizationRepository.findById(authId)
-            .orElseThrow { throw EntityNotFoundException("Authorization with ID $authId not found") }
-            .toDTO()
+        val authorization = authorizationRepository.findById(authId)
+            .orElseThrow { EntityNotFoundException("Authorization with ID $authId not found") }
+        return authorization.toDTO()
     }
 
     override fun create(authorization: AuthorizationDTO): AuthorizationDTO {
-        return authorizationRepository.save(authorization.toEntity())
-            .toDTO()
+        val entity = authorization.toEntity()
+        return authorizationRepository.save(entity).toDTO()
     }
 
     override fun update(authId: Long, authorization: AuthorizationDTO): AuthorizationDTO {
         val existingAuthorization = authorizationRepository.findById(authId)
-            .orElseThrow { throw EntityNotFoundException("Authorization with ID $authId not found") }
+            .orElseThrow { EntityNotFoundException("Authorization with ID $authId not found") }
 
-        existingAuthorization.user = authorization.user.toEntity()
-        existingAuthorization.token = authorization.token
-        existingAuthorization.twoFactorEnabled = authorization.twoFactorEnabled
+        existingAuthorization.apply {
+            user = userInfoRepository.findById(authorization.user.userId)
+                .orElseThrow { EntityNotFoundException("User with ID ${authorization.user.userId} not found") }
+            token = authorization.token
+            twoFactorEnabled = authorization.twoFactorEnabled
+        }
 
-        return authorizationRepository.save(existingAuthorization)
-            .toDTO()
+        return authorizationRepository.save(existingAuthorization).toDTO()
     }
 
     override fun delete(authId: Long) {
         authorizationRepository.deleteById(authId)
     }
-}
-
-fun AuthorizationEntity.toDTO(): AuthorizationDTO {
-    return AuthorizationDTO(
-        authId = authId,
-        user = user!!.toDTO(),
-        token = token,
-        twoFactorEnabled = twoFactorEnabled
-    )
-}
-
-fun AuthorizationDTO.toEntity(): AuthorizationEntity {
-    return AuthorizationEntity(
-        authId = authId,
-        user = user.toEntity(),
-        token = token,
-        twoFactorEnabled = twoFactorEnabled
-    )
 }

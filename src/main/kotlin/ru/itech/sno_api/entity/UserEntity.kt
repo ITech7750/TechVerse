@@ -1,5 +1,6 @@
 package ru.itech.sno_api.entity
 import jakarta.persistence.*
+import ru.itech.sno_api.dto.UserDTO
 import ru.itech.sno_api.dto.UserInfoDTO
 
 @Entity
@@ -17,3 +18,10 @@ data class UserEntity(
     var email: String = ""
 )
 
+fun UserEntity.toDTO(): UserDTO {
+    return UserDTO(
+        login = this.login,
+        password = this.password,
+        email = this.email
+    )
+}

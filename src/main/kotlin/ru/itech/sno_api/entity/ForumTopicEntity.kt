@@ -1,5 +1,6 @@
 package ru.itech.sno_api.entity
 import jakarta.persistence.*
+import ru.itech.sno_api.dto.ForumTopicDTO
 
 
 @Entity
@@ -12,7 +13,7 @@ class ForumTopicEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "forum_id")
-    var forum: ForumEntity = ForumEntity(),
+    var forum: ForumEntity? = null,
 
     @Column(name = "title", nullable = false, length = 255)
     var title: String = "",
@@ -23,4 +24,12 @@ class ForumTopicEntity(
     override fun toString(): String {
         return "ForumTopicEntity(topicId=$topicId, forum=$forum, title='$title', description=$description)"
     }
+}
+fun ForumTopicEntity.toDTO(): ForumTopicDTO {
+    return ForumTopicDTO(
+        topicId = this.topicId,
+        forumId = this.forum?.forumId ?: 0,
+        title = this.title,
+        description = this.description
+    )
 }

@@ -1,6 +1,7 @@
 package ru.itech.sno_api.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
+import ru.itech.sno_api.entity.SummaryEntity
 
 @Schema(description = "Конспект")
 data class SummaryDTO(
@@ -11,3 +12,11 @@ data class SummaryDTO(
     @Schema(description = "Описание")
     val description: String
 )
+
+fun SummaryDTO.toEntity(existingSummary: SummaryEntity? = null): SummaryEntity {
+    val summary = existingSummary ?: SummaryEntity()
+    summary.summaryId = this.summaryId
+    summary.title = this.title
+    summary.description = this.description
+    return summary
+}

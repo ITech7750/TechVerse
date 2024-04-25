@@ -1,10 +1,14 @@
 package ru.itech.sno_api.service.implementation
+
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.stereotype.Service
 import ru.itech.sno_api.dto.ForumMessageDTO
-import ru.itech.sno_api.dto.toDTO
+import ru.itech.sno_api.dto.toEntity
 import ru.itech.sno_api.entity.ForumMessageEntity
-import ru.itech.sno_api.entity.toEntity
+import ru.itech.sno_api.entity.ForumTopicEntity
+import ru.itech.sno_api.entity.UserInfoEntity
+import ru.itech.sno_api.entity.toDTO
+
 import ru.itech.sno_api.repository.ForumMessageRepository
 import ru.itech.sno_api.service.ForumMessageService
 
@@ -36,8 +40,8 @@ class ForumMessageServiceImplementation(
         existingMessage.messageText = message.messageText
         existingMessage.timestamp = message.timestamp
         existingMessage.replyId = message.replyId
-        existingMessage.topic = message.topic.toEntity()
-        existingMessage.user = message.user.toEntity()
+        existingMessage.topic = ForumTopicEntity().apply { this.topicId = message.topicId }
+        existingMessage.user = UserInfoEntity().apply { this.userId = message.userId }
 
         return forumMessageRepository.save(existingMessage)
             .toDTO()
@@ -47,27 +51,3 @@ class ForumMessageServiceImplementation(
         forumMessageRepository.deleteById(messageId)
     }
 }
-
-fun ForumMessageEntity.toDTO(): ForumMessageDTO {
-    return ForumMessageDTO(
-        messageId = messageId,
-        messageText = messageText,
-        timestamp = timestamp,
-        replyId = replyId,
-        topic = topic!!.toDTO(),
-        user = user!!.toDTO()
-    )
-}
-
-fun ForumMessageDTO.toEntity(): ForumMessageEntity {
-    return ForumMessageEntity(
-        messageId = messageId,
-        messageText = messageText,
-        timestamp = timestamp,
-        replyId = replyId,
-        topic = topic.toEntity(),
-        user = user.toEntity()
-    )
-}
-
-

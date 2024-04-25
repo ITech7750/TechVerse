@@ -1,5 +1,6 @@
 package ru.itech.sno_api.entity
 import jakarta.persistence.*
+import ru.itech.sno_api.dto.AuthorizationDTO
 
 
 @Entity
@@ -17,3 +18,11 @@ class AuthorizationEntity(
     @Column(name = "two_factor_enabled")
     var twoFactorEnabled: Boolean = false
 )
+{
+    fun toDTO(): AuthorizationDTO = AuthorizationDTO(
+        authId = this.authId,
+        user = this.user?.toDTO() ?: throw IllegalArgumentException("User information is required"),
+        token = this.token,
+        twoFactorEnabled = this.twoFactorEnabled
+    )
+}

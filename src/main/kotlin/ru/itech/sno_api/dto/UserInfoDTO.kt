@@ -4,32 +4,41 @@ import io.swagger.v3.oas.annotations.media.Schema
 import ru.itech.sno_api.entity.OrganizationEntity
 import ru.itech.sno_api.entity.UserInfoEntity
 
-
-@Schema(description = "User Information Data Transfer Object")
+@Schema(description = "Информация о пользователе")
 data class UserInfoDTO(
-    @Schema(description = "User first name", example = "John")
+    @Schema(description = "Идентификатор пользователя", example = "1")
+    val userId: Long?,
+
+    @Schema(description = "Имя пользователя", example = "Иван")
     val firstName: String,
 
-    @Schema(description = "User last name", example = "Doe")
+    @Schema(description = "Фамилия пользователя", example = "Иванов")
     val lastName: String,
 
-    @Schema(description = "User middle name", example = "Michael")
+    @Schema(description = "Отчество пользователя", example = "Иванович")
     val middleName: String?,
 
-    @Schema(description = "User role", example = "admin")
+    @Schema(description = "Роль пользователя", example = "администратор")
     val role: String,
 
-    @Schema(description = "Whether the user is a student at MIFI", example = "true")
+    @Schema(description = "Является ли пользователь студентом МИФИ", example = "true")
     val isStudentMifi: Boolean,
 
-    @Schema(description = "ID of the organization the user belongs to", example = "1")
-    val organizationId: OrganizationEntity?,
+    @Schema(description = "Идентификатор организации, к которой принадлежит пользователь", example = "1")
+    val organizationId: Long?,
 
-    @Schema(description = "Whether two-factor authentication is enabled for the user", example = "true")
+    @Schema(description = "Включена ли двухфакторная аутентификация для пользователя", example = "true")
     val twoFactorAuthEnabled: Boolean
 )
 
-
-
-
-
+fun UserInfoDTO.toEntity(existingUser: UserInfoEntity? = null): UserInfoEntity {
+    val user = existingUser ?: UserInfoEntity()
+    user.firstName = this.firstName
+    user.lastName = this.lastName
+    user.middleName = this.middleName
+    user.role = this.role
+    user.isStudentMifi = this.isStudentMifi
+    user.twoFactorAuthEnabled = this.twoFactorAuthEnabled
+    user.organization = if (this.organizationId != null) OrganizationEntity().apply { organizationId = this@toEntity.organizationId } else null
+    return user
+}

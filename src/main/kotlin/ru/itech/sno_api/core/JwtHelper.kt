@@ -5,6 +5,8 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import ru.itech.sno_api.core.domain.User
 import ru.itech.sno_api.core.util.TokenHelper
@@ -73,6 +75,7 @@ class JwtHelper(
                 .payload
         }.getOrNull()
     }
+
 
     private fun String.prepareToken(): String = this.split(" ").lastOrNull() ?: this
 }

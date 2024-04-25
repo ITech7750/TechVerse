@@ -10,6 +10,10 @@ class ForumEntity(
     @Column(name = "forum_id")
     var forumId: Long = 0,
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lecture_id")
+    var lecture: LectureEntity? = null,
+
     @Column(name = "title", nullable = false, length = 255)
     var title: String = "",
 
@@ -25,7 +29,8 @@ fun ForumEntity.toDTO(): ForumDTO {
     return ForumDTO(
         forumId = forumId,
         title = title,
-        description = description
+        description = description,
+        lectureId = lecture?.lectureId
     )
 }
 

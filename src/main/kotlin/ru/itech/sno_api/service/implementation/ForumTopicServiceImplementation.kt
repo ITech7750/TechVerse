@@ -1,10 +1,10 @@
 package ru.itech.sno_api.service.implementation
 
 import jakarta.persistence.EntityNotFoundException
-import ru.itech.sno_api.dto.ForumTopicDTO
-import ru.itech.sno_api.entity.ForumTopicEntity
 import org.springframework.stereotype.Service
+import ru.itech.sno_api.dto.ForumTopicDTO
 import ru.itech.sno_api.dto.toEntity
+import ru.itech.sno_api.entity.ForumTopicEntity
 import ru.itech.sno_api.entity.toDTO
 import ru.itech.sno_api.repository.ForumTopicRepository
 import ru.itech.sno_api.service.ForumTopicService
@@ -36,7 +36,6 @@ class ForumTopicServiceImplementation(
 
         existingTopic.title = topic.title
         existingTopic.description = topic.description
-        existingTopic.forum = topic.forum.toEntity()
 
         return forumTopicRepository.save(existingTopic)
             .toDTO()
@@ -45,22 +44,4 @@ class ForumTopicServiceImplementation(
     override fun delete(topicId: Long) {
         forumTopicRepository.deleteById(topicId)
     }
-}
-
-fun ForumTopicEntity.toDTO(): ForumTopicDTO {
-    return ForumTopicDTO(
-        topicId = topicId,
-        title = title,
-        description = description?:"",
-        forum = forum.toDTO()
-    )
-}
-
-fun ForumTopicDTO.toEntity(): ForumTopicEntity {
-    return ForumTopicEntity(
-        topicId = topicId,
-        title = title,
-        description = description,
-        forum = forum.toEntity()
-    )
 }
