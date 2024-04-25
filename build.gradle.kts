@@ -21,6 +21,7 @@ repositories {
     gradlePluginPortal()
 }
 
+
 dependencies {
     Versions.apply {
         implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -32,11 +33,13 @@ dependencies {
         implementation("io.jsonwebtoken:jjwt-jackson:$JJWT_API_VERSION")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
-        implementation("org.springdoc:springdoc-openapi-starter-common:${SPRING_DOC_VERSION}")
-        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${SPRING_DOC_VERSION}")
+        implementation("org.springdoc:springdoc-openapi-starter-common:$SPRING_DOC_VERSION")
+        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$SPRING_DOC_VERSION")
         runtimeOnly("com.mysql:mysql-connector-j")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
-        // testImplementation("org.springframework.security:spring-security-test")
+        testImplementation("org.springframework.security:spring-security-test")
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
+        testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:$MOCKITO_VERSION")
     }
 }
 
