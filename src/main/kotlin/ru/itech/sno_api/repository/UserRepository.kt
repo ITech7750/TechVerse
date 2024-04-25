@@ -11,4 +11,5 @@ interface UserRepository : CrudRepository<UserEntity, Long> {
     fun findByEmail(email: String): Optional<UserEntity>
     fun findByLogin(login: String): Optional<UserEntity>
     fun findByOrderByUserId(pageable: Pageable): List<UserEntity>
+    fun save(entity: UserEntity): UserEntity
 }

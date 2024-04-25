@@ -7,40 +7,27 @@ import ru.itech.sno_api.dto.UserDTO
 import ru.itech.sno_api.service.UserService
 
 @RestController
-@RequestMapping("/api/users/auth")
-class UserController(
-    private val userService: UserService
-) {
+@RequestMapping("/api/users")
+class UserController(private val userService: UserService) {
 
     @GetMapping
-    fun getAllUsers(): ResponseEntity<List<UserDTO>> {
-        val users = userService.getAll()
-        return ResponseEntity.ok(users)
-    }
+    fun getAllUsers(): ResponseEntity<List<UserDTO>> = ResponseEntity.ok(userService.getAll())
 
     @GetMapping("/page/{pageIndex}")
-    fun getUsersByPage(@PathVariable pageIndex: Int): ResponseEntity<List<UserDTO>> {
-        val users = userService.getAllP(pageIndex)
-        return ResponseEntity.ok(users)
-    }
+    fun getUsersByPage(@PathVariable pageIndex: Int, @RequestParam(required = false, defaultValue = "10") pageSize: Int): ResponseEntity<List<UserDTO>> =
+        ResponseEntity.ok(userService.getAllP(pageIndex, pageSize))
 
     @GetMapping("/{userId}")
-    fun getUserById(@PathVariable userId: Long): ResponseEntity<UserDTO> {
-        val user = userService.getById(userId)
-        return ResponseEntity.ok(user)
-    }
+    fun getUserById(@PathVariable userId: Long): ResponseEntity<UserDTO> =
+        ResponseEntity.ok(userService.getById(userId))
 
     @PostMapping
-    fun createUser(@RequestBody user: UserDTO): ResponseEntity<UserDTO> {
-        val savedUser = userService.create(user)
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser)
-    }
+    fun createUser(@RequestBody user: UserDTO): ResponseEntity<UserDTO> =
+        ResponseEntity.status(HttpStatus.CREATED).body(userService.create(user))
 
     @PutMapping("/{userId}")
-    fun updateUser(@PathVariable userId: Long, @RequestBody user: UserDTO): ResponseEntity<UserDTO> {
-        val updatedUser = userService.update(userId, user)
-        return ResponseEntity.ok(updatedUser)
-    }
+    fun updateUser(@PathVariable userId: Long, @RequestBody user: UserDTO): ResponseEntity<UserDTO> =
+        ResponseEntity.ok(userService.update(userId, user))
 
     @DeleteMapping("/{userId}")
     fun deleteUser(@PathVariable userId: Long): ResponseEntity<Void> {

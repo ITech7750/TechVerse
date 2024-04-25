@@ -6,7 +6,7 @@ import ru.itech.sno_api.dto.ForumMessageDTO
 import ru.itech.sno_api.dto.toEntity
 import ru.itech.sno_api.entity.ForumMessageEntity
 import ru.itech.sno_api.entity.ForumTopicEntity
-import ru.itech.sno_api.entity.UserInfoEntity
+import ru.itech.sno_api.entity.UserEntity
 import ru.itech.sno_api.entity.toDTO
 
 import ru.itech.sno_api.repository.ForumMessageRepository
@@ -41,7 +41,7 @@ class ForumMessageServiceImplementation(
         existingMessage.timestamp = message.timestamp
         existingMessage.replyId = message.replyId
         existingMessage.topic = ForumTopicEntity().apply { this.topicId = message.topicId }
-        existingMessage.user = UserInfoEntity().apply { this.userId = message.userId }
+        existingMessage.user = UserEntity().apply { this.userId = message.userId }
 
         return forumMessageRepository.save(existingMessage)
             .toDTO()

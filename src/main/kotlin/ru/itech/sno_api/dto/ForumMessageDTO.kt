@@ -3,7 +3,7 @@ package ru.itech.sno_api.dto
 import io.swagger.v3.oas.annotations.media.Schema
 import ru.itech.sno_api.entity.ForumMessageEntity
 import ru.itech.sno_api.entity.ForumTopicEntity
-import ru.itech.sno_api.entity.UserInfoEntity
+import ru.itech.sno_api.entity.UserEntity
 import java.sql.Timestamp
 
 @Schema(description = "Сообщение форума")
@@ -30,7 +30,7 @@ fun ForumMessageDTO.toEntity(): ForumMessageEntity {
     val messageEntity = ForumMessageEntity()
     messageEntity.messageId = this.messageId
     messageEntity.topic = ForumTopicEntity().apply { this.topicId = this@toEntity.topicId }
-    messageEntity.user = UserInfoEntity().apply { this.userId = this@toEntity.userId }
+    messageEntity.user = UserEntity().apply { this.userId = this@toEntity.userId }
     messageEntity.replyId = this.replyId
     messageEntity.messageText = this.messageText
     messageEntity.timestamp = this.timestamp

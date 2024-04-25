@@ -18,7 +18,7 @@ class ForumMessageEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    var user: UserInfoEntity? = null,
+    var user: UserEntity? = null,
 
     @Column(name = "reply_id")
     var replyId: Long = 0,

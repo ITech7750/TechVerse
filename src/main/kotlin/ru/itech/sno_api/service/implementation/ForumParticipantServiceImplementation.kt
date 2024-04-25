@@ -6,7 +6,7 @@ import ru.itech.sno_api.dto.ForumParticipantDTO
 import ru.itech.sno_api.dto.toEntity
 import ru.itech.sno_api.entity.ForumParticipantEntity
 import ru.itech.sno_api.entity.ForumEntity
-import ru.itech.sno_api.entity.UserInfoEntity
+import ru.itech.sno_api.entity.UserEntity
 import ru.itech.sno_api.entity.toDTO
 import ru.itech.sno_api.repository.ForumParticipantRepository
 import ru.itech.sno_api.service.ForumParticipantService
@@ -37,7 +37,7 @@ class ForumParticipantServiceImplementation(
             .orElseThrow { throw EntityNotFoundException("Forum participant with ID $participantId not found") }
 
         existingParticipant.forum = ForumEntity().apply { this.forumId = participant.forumId }
-        existingParticipant.user = UserInfoEntity().apply { this.userId = participant.userId }
+        existingParticipant.user = UserEntity().apply { this.userId = participant.userId }
 
         return forumParticipantRepository.save(existingParticipant)
             .toDTO()

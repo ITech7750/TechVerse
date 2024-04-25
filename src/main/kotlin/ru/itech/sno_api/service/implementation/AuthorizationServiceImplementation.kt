@@ -7,14 +7,14 @@ import ru.itech.sno_api.dto.AuthorizationDTO
 import ru.itech.sno_api.dto.toEntity
 import ru.itech.sno_api.entity.AuthorizationEntity
 import ru.itech.sno_api.repository.AuthorizationRepository
-import ru.itech.sno_api.repository.UserInfoRepository
+import ru.itech.sno_api.repository.UserRepository
 import ru.itech.sno_api.service.AuthorizationService
 
 @Service
 @Transactional
 open class AuthorizationServiceImplementation(
     private val authorizationRepository: AuthorizationRepository,
-    private val userInfoRepository: UserInfoRepository // Assuming you need to fetch user info entities
+    private val userInfoRepository: UserRepository
 ) : AuthorizationService {
 
     override fun getAll(): List<AuthorizationDTO> {
@@ -37,7 +37,7 @@ open class AuthorizationServiceImplementation(
             .orElseThrow { EntityNotFoundException("Authorization with ID $authId not found") }
 
         existingAuthorization.apply {
-            user = userInfoRepository.findById(authorization.user.userId)
+            user = userInfoRepository.findById(authorization.user.userId!!)
                 .orElseThrow { EntityNotFoundException("User with ID ${authorization.user.userId} not found") }
             token = authorization.token
             twoFactorEnabled = authorization.twoFactorEnabled

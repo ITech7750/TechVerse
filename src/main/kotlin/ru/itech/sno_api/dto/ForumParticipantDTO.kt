@@ -3,7 +3,7 @@ package ru.itech.sno_api.dto
 import io.swagger.v3.oas.annotations.media.Schema
 import ru.itech.sno_api.entity.ForumEntity
 import ru.itech.sno_api.entity.ForumParticipantEntity
-import ru.itech.sno_api.entity.UserInfoEntity
+import ru.itech.sno_api.entity.UserEntity
 
 @Schema(description = "Участник форума")
 data class ForumParticipantDTO(
@@ -20,7 +20,7 @@ fun ForumParticipantDTO.toEntity(): ForumParticipantEntity {
     val participant = ForumParticipantEntity()
     participant.participantId = this.participantId
     participant.forum = ForumEntity().apply { this.forumId = this@toEntity.forumId } // Ideally, fetch from DB
-    participant.user = UserInfoEntity().apply { this.userId = this@toEntity.userId } // Ideally, fetch from DB
+    participant.user = UserEntity().apply { this.userId = this@toEntity.userId } // Ideally, fetch from DB
     return participant
 }
 

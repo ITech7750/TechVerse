@@ -17,7 +17,7 @@ class ForumParticipantEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    var user: UserInfoEntity? = null
+    var user: UserEntity? = null
 )
 fun ForumParticipantEntity.toDTO(): ForumParticipantDTO {
     return ForumParticipantDTO(

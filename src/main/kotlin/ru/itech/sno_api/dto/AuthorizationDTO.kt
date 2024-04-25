@@ -8,7 +8,7 @@ data class AuthorizationDTO(
     @Schema(description = "Идентификатор авторизации")
     val authId: Long,
     @Schema(description = "Пользователь")
-    val user: UserInfoDTO,
+    val user: UserDTO,
     @Schema(description = "Токен")
     val token: String,
     @Schema(description = "Двухфакторная аутентификация")

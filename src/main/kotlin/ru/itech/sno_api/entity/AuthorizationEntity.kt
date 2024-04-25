@@ -12,7 +12,7 @@ class AuthorizationEntity(
     val authId: Long = 0,
     @OneToOne
     @JoinColumn(name = "user_id")
-    var user: UserInfoEntity? = null,
+    var user: UserEntity? = null,
     @Column(name = "token")
     var token: String = "",
     @Column(name = "two_factor_enabled")

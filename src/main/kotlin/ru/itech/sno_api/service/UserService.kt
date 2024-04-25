@@ -2,7 +2,6 @@ package ru.itech.sno_api.service
 
 import org.springframework.stereotype.Service
 import ru.itech.sno_api.dto.UserDTO
-import ru.itech.sno_api.dto.UserInfoDTO
 
 @Service
 interface UserService {
@@ -17,6 +16,5 @@ interface UserService {
 
     fun delete(userId: Long)
 
-    fun getAllP(pageIndex: Int) : List<UserDTO>
-
+    fun getAllP(pageIndex: Int, pageSize: Int = 10): List<UserDTO>
 }

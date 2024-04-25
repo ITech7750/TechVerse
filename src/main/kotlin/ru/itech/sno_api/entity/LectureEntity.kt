@@ -21,7 +21,7 @@ class LectureEntity(
 
     @OneToOne
     @JoinColumn(name = "lecturer_id")
-    var lecturer: UserInfoEntity? = null,
+    var lecturer: UserEntity? = null,
 
     @Column(name = "title")
     var title: String = "",

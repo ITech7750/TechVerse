@@ -10,8 +10,8 @@ data class LectureDTO(
     @Schema(description = "Идентификатор лекции", example = "1")
     val lectureId: Long,
 
-    @Schema(description = "Лектор", nullable = true) // Make nullable if applicable
-    val lecturer: UserInfoDTO?,
+    @Schema(description = "Лектор", nullable = true)
+    val lecturer: UserDTO?,
 
     @Schema(description = "Название", example = "Введение в информатику")
     val title: String,

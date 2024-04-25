@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import ru.itech.sno_api.core.util.State
 
-import ru.itech.sno_api.repository.UserInfoRepository
 import ru.itech.sno_api.repository.UserRepository
 import java.io.IOException
 

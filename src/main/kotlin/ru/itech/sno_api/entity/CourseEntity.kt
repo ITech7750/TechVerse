@@ -16,7 +16,7 @@ data class CourseEntity(
     val lectures: MutableList<LectureEntity> = mutableListOf(),
 
     @ManyToMany(mappedBy = "courses")
-    val users: MutableSet<UserInfoEntity> = mutableSetOf(),
+    val users: MutableSet<UserEntity> = mutableSetOf(),
 
     @ManyToOne
     @JoinColumn(name = "admin_id")
