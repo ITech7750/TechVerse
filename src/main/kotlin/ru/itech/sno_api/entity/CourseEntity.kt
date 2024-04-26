@@ -16,7 +16,7 @@ data class CourseEntity(
     val lectures: MutableList<LectureEntity> = mutableListOf(),
 
     @ManyToMany(mappedBy = "courses")
-    val users: MutableSet<UserEntity> = mutableSetOf(),
+    var users: Set<UserEntity> = emptySet(),
 
     @ManyToOne
     @JoinColumn(name = "admin_id")
@@ -36,13 +36,4 @@ data class CourseEntity(
     @Column(name = "end_date")
     var endDate: Date? = null
 )
-fun CourseEntity.toDTO(): CourseDTO {
-    return CourseDTO(
-        courseId = this.courseId,
-        title = this.title,
-        description = this.description,
-        startDate = this.startDate,
-        endDate = this.endDate,
-        adminId = this.admin?.userId
-    )
-}
+fun CourseEntity.toDTO(): CourseDTO = CourseDTO(this)

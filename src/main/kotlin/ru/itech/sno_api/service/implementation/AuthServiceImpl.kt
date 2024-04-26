@@ -2,7 +2,6 @@ package ru.itech.sno_api.service.implementation
 
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.security.authentication.BadCredentialsException
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -24,7 +23,7 @@ open class AuthServiceImpl(
     private val userRepository: UserRepository,
     private val courseRepository: CourseRepository,
     private val jwtHelper: JwtHelper,
-    private val passwordEncoder: PasswordEncoder  // Исправлено: Теперь тип - PasswordEncoder
+    private val passwordEncoder: PasswordEncoder
 ) : AuthService {
 
     override fun authenticate(signInRequest: SignInRequest): AuthTokenResponse {
@@ -40,7 +39,8 @@ open class AuthServiceImpl(
         val user = User(
             id = userEntity.userId,
             login = userEntity.login,
-            email = userEntity.email
+            email = userEntity.email,
+
         )
 
         val accessToken = jwtHelper.createToken(user, HashMap(), isAccessToken = true)
@@ -85,7 +85,7 @@ open class AuthServiceImpl(
             throw IllegalArgumentException("User with email ${signUpRequest.email} already exists")
         }
 
-        // Хешируем пароль один раз перед сохранением
+        // Хешируем пароль перед сохранением
         val hashedPassword = passwordEncoder.encode(signUpRequest.password)
 
         val userEntity = UserDTO(

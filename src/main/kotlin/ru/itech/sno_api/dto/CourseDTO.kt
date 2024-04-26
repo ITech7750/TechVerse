@@ -32,12 +32,23 @@ data class CourseDTO(
 
     @Schema(description = "Список идентификаторов лекций, входящих в курс")
     val lectureIds: Set<Long> = emptySet()
-)
+) {
+    constructor(course: CourseEntity) : this(
+        courseId = course.courseId,
+        title = course.title,
+        description = course.description,
+        startDate = course.startDate,
+        endDate = course.endDate,
+        adminId = course.admin?.userId,
+        userIds = course.users.map { it.userId }.toSet(),
+        lectureIds = course.lectures.map { it.lectureId }.toSet()
+    )
+}
+
 @Transactional
 fun CourseDTO.toEntity(
     existingCourse: CourseEntity? = null,
     userRepository: UserRepository,
-    lectureRepository: LectureRepository
 ): CourseEntity {
     val course = existingCourse ?: CourseEntity()
     course.courseId = this.courseId
@@ -46,24 +57,5 @@ fun CourseDTO.toEntity(
     course.startDate = this.startDate
     course.endDate = this.endDate
     course.admin = this.adminId?.let { userRepository.findById(it).orElse(null) }
-
-    // Обновление списка лекций
-    course.lectures.clear()
-    this.lectureIds.forEach { lectureId ->
-        lectureRepository.findById(lectureId).ifPresent {
-            course.lectures.add(it)
-            it.course = course  // Устанавливаем обратную связь с курсом
-        }
-    }
-
-    // Обновление списка пользователей
-    course.users.clear()
-    this.userIds.forEach { userId ->
-        userRepository.findById(userId).ifPresent { user ->
-            course.users.add(user)
-            user.courses.add(course)  // Обеспечение двунаправленной связи
-        }
-    }
-
     return course
 }

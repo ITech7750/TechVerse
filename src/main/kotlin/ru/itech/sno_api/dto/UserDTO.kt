@@ -49,7 +49,6 @@ data class UserDTO(
 
 @Transactional
 fun UserDTO.toEntity(courseRepository: CourseRepository): UserEntity {
-    // Создаем или получаем экземпляр UserEntity
     val userEntity = UserEntity(
         userId = this.userId,
         login = this.login,
@@ -69,20 +68,10 @@ fun UserDTO.toEntity(courseRepository: CourseRepository): UserEntity {
         courseRepository.findById(courseId).orElse(null)
     }.toMutableSet()
 
-    // Проверяем, что все переданные ID курсов были найдены
-    if (courseEntities.size != this.courses.size) {
-        throw EntityNotFoundException("One or more course IDs are invalid.")
-    }
-
     // Устанавливаем связь между пользователем и курсами
-    userEntity.courses.clear() // Очищаем существующие связи
     userEntity.courses.addAll(courseEntities)
-    courseEntities.forEach { course ->
-        course.users.add(userEntity) // Обеспечиваем двустороннюю связь
-    }
 
     return userEntity
 }
-
 
 

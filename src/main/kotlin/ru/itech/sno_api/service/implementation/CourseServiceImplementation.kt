@@ -31,7 +31,7 @@ open class CourseServiceImplementation(
 
     override fun create(courseDTO: CourseDTO): CourseDTO {
         // Создаем объект CourseEntity из DTO и передаем userRepository для обработки связанных пользователей
-        val courseEntity = courseDTO.toEntity(null, userRepository,lectureRepository)
+        val courseEntity = courseDTO.toEntity(null, userRepository)
         // Сохраняем курс в репозитории и возвращаем его DTO представление
         return courseRepository.save(courseEntity).toDTO()
     }
@@ -45,20 +45,26 @@ open class CourseServiceImplementation(
         val existingCourse = courseRepository.findById(courseId).orElseThrow {
             EntityNotFoundException("Course with ID $courseId not found")
         }
+
         existingCourse.apply {
             title = courseDTO.title
             description = courseDTO.description
             startDate = courseDTO.startDate
             endDate = courseDTO.endDate
             admin = courseDTO.adminId?.let { userRepository.findById(it).orElse(null) }
-            users.clear() // Очистка текущих пользователей
-            // Добавление новых пользователей, если это необходимо
-            users.addAll(courseDTO.userIds.mapNotNull { userId ->
-                userRepository.findById(userId).orElse(null)?.also { user ->
-                    user.courses.add(this)
-                }
-            })
+
+            // Create a new set with the existing users and the new users from the DTO
+            val newUsers = users.toMutableSet().apply {
+                addAll(courseDTO.userIds.mapNotNull { userId ->
+                    userRepository.findById(userId).orElse(null)?.also { user ->
+                        // No need to add the course to the user's courses set
+                        // as it will be done automatically due to the bidirectional relationship
+                    }
+                })
+            }
+            users = newUsers.toSet() as MutableSet<UserEntity>
         }
+
         return courseRepository.save(existingCourse).toDTO()
     }
 

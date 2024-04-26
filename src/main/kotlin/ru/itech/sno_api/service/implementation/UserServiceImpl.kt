@@ -36,7 +36,7 @@ open class UserServiceImplementation(
 
     override fun create(user: UserDTO): UserDTO {
         user.password = passwordEncoder.encode(user.password) // Шифрование пароля перед сохранением
-        val newUser = user.toEntity(courseRepository) // Передача courseRepository для загрузки курсов
+        val newUser = user.toEntity(courseRepository)
         return userRepository.save(newUser).toDTO()
     }
 
@@ -57,13 +57,12 @@ open class UserServiceImplementation(
             isStudentMifi = user.isStudentMifi
             twoFactorAuthEnabled = user.twoFactorAuthEnabled
             organization = user.organizationId?.let { OrganizationEntity().apply { organizationId = it } }
-            courses.clear()
-            courses.addAll(user.toEntity(courseRepository).courses)
+            courses.clear() // Очищаем существующие связи
+            courses.addAll(user.toEntity(courseRepository).courses) // Устанавливаем новые связи
         }
 
         return userRepository.save(existingUser).toDTO()
     }
-
 
     override fun delete(userId: Long) =
         userRepository.deleteById(userId)
