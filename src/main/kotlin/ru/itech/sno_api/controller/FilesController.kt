@@ -24,13 +24,13 @@ class FilesController(private val filesService: FilesService) {
     }
 
     @PostMapping
-    fun createFile(@RequestBody file: FilesDTO): ResponseEntity<FilesDTO> {
+    fun createFile(@RequestBody file: MultipartFile): ResponseEntity<FilesDTO> {
         val createdFile = filesService.create(file)
         return ResponseEntity(createdFile, HttpStatus.CREATED)
     }
 
     @PutMapping("/{fileId}")
-    fun updateFile(@PathVariable fileId: Long, @RequestBody file: FilesDTO): ResponseEntity<FilesDTO> {
+    fun updateFile(@PathVariable fileId: Long, @RequestBody file: MultipartFile): ResponseEntity<FilesDTO> {
         val updatedFile = filesService.update(fileId, file)
         return ResponseEntity(updatedFile, HttpStatus.OK)
     }

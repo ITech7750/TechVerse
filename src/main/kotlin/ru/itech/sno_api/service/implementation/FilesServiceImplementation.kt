@@ -28,24 +28,53 @@ open class FilesServiceImplementation(
         return fileEntity.toDTO()
     }
 
-    override fun create(file: FilesDTO): FilesDTO {
-        val fileEntity = file.toEntity()
-        val savedFileEntity = filesRepository.save(fileEntity)
-        return savedFileEntity.toDTO()
+    override fun create(file: MultipartFile): FilesDTO {
+        if (file.isEmpty) {
+            throw IllegalArgumentException("Uploaded file is empty")
+        }
+
+        val directory = File("uploads")
+        if (!directory.exists()) {
+            directory.mkdirs()
+        }
+
+        val filePath = "${directory.absolutePath}/${file.originalFilename}"
+        val destFile = File(filePath)
+        try {
+            file.transferTo(destFile)
+            val filesEntity = FilesEntity(filePath = filePath, fileType = file.contentType ?: "unknown")
+            val savedFileEntity = filesRepository.save(filesEntity)
+            return savedFileEntity.toDTO()
+        } catch (e: IOException) {
+            throw RuntimeException("Failed to upload file: ${e.message}", e)
+        }
     }
 
-    override fun update(fileId: Long, file: FilesDTO): FilesDTO {
+    override fun update(fileId: Long, file: MultipartFile): FilesDTO {
         val existingFile = filesRepository.findById(fileId)
             .orElseThrow { EntityNotFoundException("File with ID $fileId not found") }
-        existingFile.filePath = file.filePath
-        existingFile.fileType = file.fileType.toString()
-        val updatedFile = filesRepository.save(existingFile)
-        return updatedFile.toDTO()
+
+        // Replace the existing file
+        val newFile = File(existingFile.filePath)
+        if (newFile.exists()) {
+            newFile.delete()
+        }
+        try {
+            file.transferTo(newFile)
+            existingFile.fileType = file.contentType ?: "unknown"
+            val updatedFile = filesRepository.save(existingFile)
+            return updatedFile.toDTO()
+        } catch (e: IOException) {
+            throw RuntimeException("Failed to update file: ${e.message}", e)
+        }
     }
 
     override fun delete(fileId: Long) {
-        if (!filesRepository.existsById(fileId)) {
-            throw EntityNotFoundException("File with ID $fileId not found")
+        val fileEntity = filesRepository.findById(fileId)
+            .orElseThrow { EntityNotFoundException("File with ID $fileId not found") }
+        val file = File(fileEntity.filePath)
+        if (file.exists()) {
+            file.delete()
         }
         filesRepository.deleteById(fileId)
     }
