@@ -1,8 +1,11 @@
 package ru.itech.sno_api.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
+import jakarta.persistence.EntityNotFoundException
+import jakarta.transaction.Transactional
 import ru.itech.sno_api.entity.OrganizationEntity
 import ru.itech.sno_api.entity.UserEntity
+import ru.itech.sno_api.repository.CourseRepository
 
 
 @Schema(description = "Полная информация о пользователе")
@@ -43,8 +46,11 @@ data class UserDTO(
     @Schema(description = "Набор идентификаторов курсов, ассоциированных с пользователем", example = "[101, 102, 103]", required = false)
     val courses: Set<Long> = emptySet()
 )
-fun UserDTO.toEntity(): UserEntity {
-    return UserEntity(
+
+@Transactional
+fun UserDTO.toEntity(courseRepository: CourseRepository): UserEntity {
+    // Создаем или получаем экземпляр UserEntity
+    val userEntity = UserEntity(
         userId = this.userId,
         login = this.login,
         email = this.email,
@@ -55,7 +61,28 @@ fun UserDTO.toEntity(): UserEntity {
         role = this.role,
         isStudentMifi = this.isStudentMifi,
         twoFactorAuthEnabled = this.twoFactorAuthEnabled,
-        organization = if (this.organizationId != null) OrganizationEntity().apply { organizationId = this.organizationId } else null
+        organization = this.organizationId?.let { OrganizationEntity().apply { organizationId = it } }
     )
+
+    // Загружаем курсы из репозитория
+    val courseEntities = this.courses.mapNotNull { courseId ->
+        courseRepository.findById(courseId).orElse(null)
+    }.toMutableSet()
+
+    // Проверяем, что все переданные ID курсов были найдены
+    if (courseEntities.size != this.courses.size) {
+        throw EntityNotFoundException("One or more course IDs are invalid.")
+    }
+
+    // Устанавливаем связь между пользователем и курсами
+    userEntity.courses.clear() // Очищаем существующие связи
+    userEntity.courses.addAll(courseEntities)
+    courseEntities.forEach { course ->
+        course.users.add(userEntity) // Обеспечиваем двустороннюю связь
+    }
+
+    return userEntity
 }
+
+
 

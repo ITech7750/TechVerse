@@ -19,7 +19,7 @@ class LectureEntity(
     @JoinColumn(name = "course_id")
     var course: CourseEntity? = null,
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "lecturer_id")
     var lecturer: UserEntity? = null,
 

@@ -9,4 +9,6 @@ interface CourseService {
     fun create(courseDTO: CourseDTO): CourseDTO
     fun update(courseId: Long, courseDTO: CourseDTO): CourseDTO
     fun delete(courseId: Long)
+    fun findByTitle(title: String): List<CourseDTO>
+    fun findByDescription(description: String): List<CourseDTO>
 }

@@ -1,5 +1,5 @@
 package ru.itech.sno_api.dto
-
+/*
 import io.swagger.v3.oas.annotations.media.Schema
 import ru.itech.sno_api.entity.AuthorizationEntity
 
@@ -21,3 +21,4 @@ data class AuthorizationDTO(
         twoFactorEnabled = this.twoFactorEnabled
     )
 }
+*/

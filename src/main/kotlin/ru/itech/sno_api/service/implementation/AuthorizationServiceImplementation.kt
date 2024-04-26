@@ -1,5 +1,5 @@
 package ru.itech.sno_api.service.implementation
-
+/*
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -50,3 +50,4 @@ open class AuthorizationServiceImplementation(
         authorizationRepository.deleteById(authId)
     }
 }
+*/

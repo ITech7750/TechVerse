@@ -18,4 +18,8 @@ interface LectureService {
     fun delete(lectureId: Long)
 
     fun getAllPaginated(pageIndex: Int, pageSize: Int): List<LectureDTO>
+
+    fun findByTitle(title: String): List<LectureDTO>
+
+    fun findByLecturer(lecturerId: Long): List<LectureDTO>
 }

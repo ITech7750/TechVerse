@@ -8,13 +8,17 @@ import ru.itech.sno_api.dto.LectureDTO
 import ru.itech.sno_api.dto.toEntity
 import ru.itech.sno_api.entity.LectureEntity
 import ru.itech.sno_api.entity.toDTO
+import ru.itech.sno_api.repository.CourseRepository
 import ru.itech.sno_api.repository.LectureRepository
+import ru.itech.sno_api.repository.UserRepository
 import ru.itech.sno_api.service.LectureService
 
 @Service
 @Transactional
 open class LectureServiceImplementation(
-    private val lectureRepository: LectureRepository
+    private val lectureRepository: LectureRepository,
+    private val courseRepository: CourseRepository,
+    private val userRepository: UserRepository,
 ): LectureService {
 
     override fun getAll(): List<LectureDTO> {
@@ -28,8 +32,17 @@ open class LectureServiceImplementation(
             .toDTO()
     }
 
+
+    override fun findByTitle(title: String): List<LectureDTO> =
+        lectureRepository.findByTitle(title).map { it.toDTO() }
+
+    override fun findByLecturer(lecturerId: Long): List<LectureDTO> =
+        lectureRepository.findByLecturerUserId(lecturerId).map { it.toDTO() }
+
+
+
     override fun create(lecture: LectureDTO): LectureDTO {
-        return lectureRepository.save(lecture.toEntity())
+        return lectureRepository.save(lecture.toEntity(courseRepository))
             .toDTO()
     }
 
@@ -40,7 +53,7 @@ open class LectureServiceImplementation(
         existingLecture.title = lecture.title
         existingLecture.description = lecture.description
         existingLecture.date = lecture.date
-        if (lecture.lecturer != null) existingLecture.lecturer = lecture.lecturer.toEntity()
+        if (lecture.lecturer != null) existingLecture.lecturer = lecture.lecturer.toEntity(courseRepository)
         if (lecture.summary != null) existingLecture.summary = lecture.summary.toEntity()
         if (lecture.forum != null) existingLecture.forum = lecture.forum.toEntity()
         if (lecture.file != null) existingLecture.file = lecture.file.toEntity()

@@ -1,4 +1,5 @@
 package ru.itech.sno_api.entity
+/*
 import jakarta.persistence.*
 import ru.itech.sno_api.dto.AuthorizationDTO
 
@@ -26,3 +27,5 @@ class AuthorizationEntity(
         twoFactorEnabled = this.twoFactorEnabled
     )
 }
+
+ */

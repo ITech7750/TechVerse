@@ -1,7 +1,10 @@
 package ru.itech.sno_api.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
+import jakarta.transaction.Transactional
+import ru.itech.sno_api.entity.CourseEntity
 import ru.itech.sno_api.entity.LectureEntity
+import ru.itech.sno_api.repository.CourseRepository
 import ru.itech.sno_api.service.implementation.toEntity
 import java.util.*
 
@@ -31,16 +34,20 @@ data class LectureDTO(
     @Schema(description = "Файл", nullable = true)
     val file: FilesDTO?
 )
-fun LectureDTO.toEntity(): LectureEntity {
-    val lecture = LectureEntity()
-    lecture.lectureId = this.lectureId
-    lecture.title = this.title
-    lecture.description = this.description
-    lecture.date = this.date
-    lecture.lecturer = this.lecturer?.toEntity() ?: null
-    lecture.summary = this.summary?.toEntity() ?: null
-    lecture.forum = this.forum?.toEntity() ?: null
-    lecture.file = this.file?.toEntity() ?: null
+
+@Transactional
+fun LectureDTO.toEntity(courseRepository: CourseRepository): LectureEntity {
+    val lecture = LectureEntity().apply {
+        lectureId = this@toEntity.lectureId
+        title = this@toEntity.title
+        description = this@toEntity.description
+        date = this@toEntity.date
+        lecturer = this@toEntity.lecturer?.toEntity(courseRepository) ?: null
+        summary = this@toEntity.summary?.toEntity() ?: null
+        forum = this@toEntity.forum?.toEntity() ?: null
+        file = this@toEntity.file?.toEntity() ?: null
+
+    }
 
     return lecture
 }

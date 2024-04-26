@@ -19,6 +19,15 @@ class CourseController(
     fun getCourseById(@PathVariable("id") courseId: Long): ResponseEntity<CourseDTO> =
         ResponseEntity.ok(courseService.findById(courseId))
 
+    @GetMapping("/title/{title}")
+    fun getCoursesByTitle(@PathVariable title: String): ResponseEntity<List<CourseDTO>> =
+        ResponseEntity.ok(courseService.findByTitle(title))
+
+
+    @GetMapping("/description")
+    fun getCoursesByDescription(@RequestParam description: String): ResponseEntity<List<CourseDTO>> =
+        ResponseEntity.ok(courseService.findByDescription(description))
+
     @PostMapping
     fun createCourse(@RequestBody courseDTO: CourseDTO): ResponseEntity<CourseDTO> =
         ResponseEntity.ok(courseService.create(courseDTO))

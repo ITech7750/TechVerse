@@ -79,7 +79,7 @@ open class FilesServiceImplementation(
         }
     }
 
-    // Utility methods to convert between DTO and Entity
+
     private fun FilesEntity.toDTO(): FilesDTO {
         return FilesDTO(fileId = fileId, filePath = filePath, fileType =  fileType)
     }

@@ -1,5 +1,5 @@
 package ru.itech.sno_api.controller
-
+/*
 import org.springframework.security.access.prepost.PreAuthorize
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -46,3 +46,4 @@ class AuthorizationController(
     fun delete(@PathVariable authId: Long) =
         authorizationService.delete(authId)
 }
+*/

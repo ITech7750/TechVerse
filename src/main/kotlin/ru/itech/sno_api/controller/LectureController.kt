@@ -27,6 +27,14 @@ class LectureController(
     fun getById(@PathVariable lectureId: Long): LectureDTO =
         lectureService.getById(lectureId)
 
+    @GetMapping("/title/{title}")
+    fun findByTitle(@PathVariable title: String): List<LectureDTO> =
+        lectureService.findByTitle(title)
+
+    @GetMapping("/lecturer/{lecturerId}")
+    fun findByLecturer(@PathVariable lecturerId: Long): List<LectureDTO> =
+        lectureService.findByLecturer(lecturerId)
+
     @Operation(method = "Создание новой лекции")
     @PostMapping
     fun create(@RequestBody lecture: LectureDTO): LectureDTO =
