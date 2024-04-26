@@ -1,5 +1,6 @@
 package ru.itech.sno_api.controller
 
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.*
 import org.springframework.http.ResponseEntity
 import org.springframework.http.HttpStatus
@@ -9,6 +10,10 @@ import ru.itech.sno_api.service.FilesService
 
 @RestController
 @RequestMapping("/api/v1/files")
+@Tag(
+    name = "Files API",
+    description = "Управление файлами"
+)
 class FilesController(private val filesService: FilesService) {
 
     @GetMapping

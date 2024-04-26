@@ -10,7 +10,7 @@ import ru.itech.sno_api.service.SummaryService
 @RequestMapping("/api/v1/summaries")
 @Tag(
     name = "Summary API",
-    description = "Конспекты"
+    description = "Управление конспектами"
 )
 class SummaryController(
     private val summaryService: SummaryService

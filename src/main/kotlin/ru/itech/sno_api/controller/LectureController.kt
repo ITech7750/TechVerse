@@ -11,7 +11,7 @@ import ru.itech.sno_api.service.LectureService
 @RequestMapping("/api/v1/lectures")
 @Tag(
     name = "Lecture API",
-    description = "Лекции"
+    description = "Управление лекциями и семинарами"
 )
 class LectureController(
     private val lectureService: LectureService

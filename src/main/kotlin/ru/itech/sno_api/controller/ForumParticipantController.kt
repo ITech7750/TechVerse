@@ -9,8 +9,8 @@ import ru.itech.sno_api.service.ForumParticipantService
 @RestController
 @RequestMapping("/api/v1/forum-participants")
 @Tag(
-    name = "Forum participant API",
-    description = "Участники форума"
+    name = "Forum  Participant API",
+    description = "Управление участниками форума"
 )
 class ForumParticipantController(
     private val forumParticipantService: ForumParticipantService

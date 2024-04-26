@@ -10,7 +10,7 @@ import ru.itech.sno_api.service.ForumTopicService
 @RequestMapping("/api/v1/forum-topics")
 @Tag(
     name = "Forum Topic API",
-    description = "Темы форума"
+    description = "Управление темами форума"
 )
 class ForumTopicController(
     private val forumTopicService: ForumTopicService

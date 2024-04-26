@@ -1,5 +1,6 @@
 package ru.itech.sno_api.controller
 
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -14,9 +15,13 @@ import ru.itech.sno_api.dto.FilesDTO
 
 @RestController
 @RequestMapping("/api/v1/stream")
+@Tag(
+    name = "Stream API",
+    description = "Управление трансляцией"
+)
 class VideoController(private val filesService: FilesService) {
 
-    @GetMapping("/stream-video/{fileId}")
+    @GetMapping("/stream/{fileId}")
     fun streamVideo(@PathVariable fileId: Long): ResponseEntity<StreamingResponseBody> {
         val fileDto: FilesDTO
         try {

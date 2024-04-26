@@ -1,5 +1,6 @@
 package ru.itech.sno_api.controller
 
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -8,6 +9,10 @@ import ru.itech.sno_api.service.UserService
 
 @RestController
 @RequestMapping("/api/users")
+@Tag(
+    name = "User Management API",
+    description = "Управление пользователями"
+)
 class UserController(private val userService: UserService) {
 
     @GetMapping

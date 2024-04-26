@@ -10,7 +10,7 @@ import ru.itech.sno_api.service.ForumService
 @RequestMapping("/api/v1/forums")
 @Tag(
     name = "Forum API",
-    description = "Форумы"
+    description = "Управление форумами"
 )
 class ForumController(
     private val forumService: ForumService

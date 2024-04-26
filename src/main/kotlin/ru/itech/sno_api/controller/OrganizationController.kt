@@ -12,7 +12,7 @@ import ru.itech.sno_api.service.OrganizationService
 @RequestMapping("/api/v1/organizations")
 @Tag(
     name = "Organization API",
-    description = "Организации"
+    description = "Управление организациями"
 )
 class OrganizationController(
     private val organizationService: OrganizationService

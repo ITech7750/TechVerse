@@ -1,5 +1,6 @@
 package ru.itech.sno_api.controller
 
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ru.itech.sno_api.dto.CourseDTO
@@ -7,6 +8,10 @@ import ru.itech.sno_api.service.CourseService
 
 @RestController
 @RequestMapping("/api/courses")
+@Tag(
+    name = "Course API",
+    description = "Управление курсами"
+)
 class CourseController(
     private val courseService: CourseService
 ) {

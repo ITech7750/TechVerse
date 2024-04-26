@@ -10,7 +10,7 @@ import ru.itech.sno_api.service.ForumParticipantRoleService
 @RequestMapping("/api/v1/forum-participant-roles")
 @Tag(
     name = "Forum Participant Role API",
-    description = "Роли участников форума"
+    description = "Управление ролями участников форума"
 )
 class ForumParticipantRoleController(
     private val forumParticipantRoleService: ForumParticipantRoleService
