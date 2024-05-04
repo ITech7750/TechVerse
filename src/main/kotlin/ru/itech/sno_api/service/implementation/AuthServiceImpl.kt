@@ -54,14 +54,14 @@ open class AuthServiceImpl(
             throw IllegalArgumentException("Invalid token type. Expected a refresh token.")
         }
 
-        if (jwtHelper.isTokenValid(refreshToken)) {
+        if (!jwtHelper.isTokenValid(refreshToken)) {
             throw IllegalArgumentException("Refresh token has expired. Please login again.")
         }
 
         val claims = jwtHelper.getClaims(refreshToken)
             ?: throw IllegalArgumentException("Failed to parse claims from the refresh token.")
 
-        val userId = claims["id"] as Long? ?: throw IllegalArgumentException("User ID is missing in the refresh token.")
+        val userId = claims["id"]?.toString()?.toLongOrNull() ?: throw IllegalArgumentException("User ID is missing in the refresh token.")
 
         val userEntity = userRepository.findById(userId)
             .orElseThrow { EntityNotFoundException("User with ID $userId not found.") }
