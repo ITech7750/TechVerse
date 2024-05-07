@@ -57,8 +57,7 @@ open class UserServiceImplementation(
             isStudentMifi = user.isStudentMifi
             twoFactorAuthEnabled = user.twoFactorAuthEnabled
             organization = user.organizationId?.let { OrganizationEntity().apply { organizationId = it } }
-            courses.clear() // Очищаем существующие связи
-            courses.addAll(user.toEntity(courseRepository).courses) // Устанавливаем новые связи
+
         }
 
         return userRepository.save(existingUser).toDTO()

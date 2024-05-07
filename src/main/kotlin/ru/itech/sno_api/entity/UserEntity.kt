@@ -1,5 +1,6 @@
 package ru.itech.sno_api.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import ru.itech.sno_api.dto.UserDTO
 
@@ -39,13 +40,9 @@ data class UserEntity(
     @Column(name = "two_factor_auth_enabled")
     var twoFactorAuthEnabled: Boolean? = null,
 
-    @ManyToMany
-    @JoinTable(
-        name = "user_course",
-        joinColumns = [JoinColumn(name = "user_id")],
-        inverseJoinColumns = [JoinColumn(name = "course_id")]
-    )
-    var courses: MutableSet<CourseEntity> = mutableSetOf()
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
+    @JsonIgnore
+    var userCourses: MutableSet<UserCourseEntity> = mutableSetOf()
 )
 
 fun UserEntity.toDTO(): UserDTO {
@@ -61,6 +58,6 @@ fun UserEntity.toDTO(): UserDTO {
         isStudentMifi = this.isStudentMifi,
         organizationId = this.organization?.organizationId,
         twoFactorAuthEnabled = this.twoFactorAuthEnabled,
-        courses = this.courses.map { it.courseId }.toSet()
+        courses = this.userCourses.map { it.course?.courseId }.filterNotNull().toSet()
     )
 }

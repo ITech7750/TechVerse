@@ -2,10 +2,8 @@ package ru.itech.sno_api.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.transaction.Transactional
-import ru.itech.sno_api.entity.CourseEntity
 import ru.itech.sno_api.entity.LectureEntity
 import ru.itech.sno_api.repository.CourseRepository
-import ru.itech.sno_api.service.implementation.toEntity
 import java.util.*
 
 @Schema(description = "Лекция")
@@ -46,7 +44,6 @@ fun LectureDTO.toEntity(courseRepository: CourseRepository): LectureEntity {
         summary = this@toEntity.summary?.toEntity() ?: null
         forum = this@toEntity.forum?.toEntity() ?: null
         file = this@toEntity.file?.toEntity() ?: null
-
     }
 
     return lecture

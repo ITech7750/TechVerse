@@ -1,12 +1,11 @@
 package ru.itech.sno_api.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
-import jakarta.persistence.EntityNotFoundException
 import jakarta.transaction.Transactional
 import ru.itech.sno_api.entity.OrganizationEntity
+import ru.itech.sno_api.entity.UserCourseEntity
 import ru.itech.sno_api.entity.UserEntity
 import ru.itech.sno_api.repository.CourseRepository
-
 
 @Schema(description = "Полная информация о пользователе")
 data class UserDTO(
@@ -69,9 +68,7 @@ fun UserDTO.toEntity(courseRepository: CourseRepository): UserEntity {
     }.toMutableSet()
 
     // Устанавливаем связь между пользователем и курсами
-    userEntity.courses.addAll(courseEntities)
+    userEntity.userCourses = courseEntities.map { UserCourseEntity(user = userEntity, course = it) }.toMutableSet()
 
     return userEntity
 }
-
-

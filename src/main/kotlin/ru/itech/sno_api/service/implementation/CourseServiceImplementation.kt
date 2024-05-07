@@ -53,16 +53,6 @@ open class CourseServiceImplementation(
             endDate = courseDTO.endDate
             admin = courseDTO.adminId?.let { userRepository.findById(it).orElse(null) }
 
-            // Create a new set with the existing users and the new users from the DTO
-            val newUsers = users.toMutableSet().apply {
-                addAll(courseDTO.userIds.mapNotNull { userId ->
-                    userRepository.findById(userId).orElse(null)?.also { user ->
-                        // No need to add the course to the user's courses set
-                        // as it will be done automatically due to the bidirectional relationship
-                    }
-                })
-            }
-            users = newUsers.toSet() as MutableSet<UserEntity>
         }
 
         return courseRepository.save(existingCourse).toDTO()

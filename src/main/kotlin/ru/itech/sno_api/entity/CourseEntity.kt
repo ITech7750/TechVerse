@@ -1,8 +1,9 @@
 package ru.itech.sno_api.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import ru.itech.sno_api.dto.CourseDTO
-import java.util.*
+import java.time.LocalDate
 
 @Entity
 @Table(name = "course")
@@ -12,13 +13,11 @@ data class CourseEntity(
     @Column(name = "course_id")
     var courseId: Long = 0,
 
-    @OneToMany(mappedBy = "course", cascade = [CascadeType.ALL], orphanRemoval = true)
+    @OneToMany(mappedBy = "course", cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JsonIgnore
     val lectures: MutableList<LectureEntity> = mutableListOf(),
 
-    @ManyToMany(mappedBy = "courses")
-    var users: Set<UserEntity> = emptySet(),
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "admin_id")
     var admin: UserEntity? = null,
 
@@ -28,12 +27,15 @@ data class CourseEntity(
     @Column(name = "description")
     var description: String = "",
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "start_date")
-    var startDate: Date? = null,
+    var startDate: LocalDate? = null,
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "end_date")
-    var endDate: Date? = null
+    var endDate: LocalDate? = null,
+
+    @OneToMany(mappedBy = "course", cascade = [CascadeType.ALL], orphanRemoval = true)
+    @JsonIgnore
+    var userCourses: MutableSet<UserCourseEntity> = mutableSetOf()
 )
+
 fun CourseEntity.toDTO(): CourseDTO = CourseDTO(this)

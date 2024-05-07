@@ -6,7 +6,6 @@ import ru.itech.sno_api.service.implementation.toDTO
 import ru.itech.sno_api.service.implementation.toEntity
 import java.util.*
 
-
 @Entity
 @Table(name = "lecture")
 class LectureEntity(
@@ -44,7 +43,6 @@ class LectureEntity(
     @JoinColumn(name = "file_id")
     var file: FilesEntity? = null
 )
-
 
 fun LectureEntity.toDTO(): LectureDTO {
     return LectureDTO(
