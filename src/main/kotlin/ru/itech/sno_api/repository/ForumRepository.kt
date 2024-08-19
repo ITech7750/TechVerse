@@ -5,4 +5,6 @@ import org.springframework.stereotype.Repository
 import ru.itech.sno_api.entity.ForumEntity
 
 @Repository
-interface ForumRepository : CrudRepository<ForumEntity, Long>
+interface ForumRepository : CrudRepository<ForumEntity, Long>{
+
+}

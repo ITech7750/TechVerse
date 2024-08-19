@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ru.itech.sno_api.dto.CourseDTO
 import ru.itech.sno_api.service.CourseService
+import java.time.LocalDate
+import java.util.*
 
 @RestController
 @RequestMapping("/api/courses")
@@ -46,4 +48,46 @@ class CourseController(
         courseService.delete(courseId)
         return ResponseEntity.noContent().build()
     }
+
+    @PatchMapping("/{courseId}/title")
+    fun updateTitle(@PathVariable courseId: Long, @RequestBody newTitle: String): ResponseEntity<CourseDTO> =
+        ResponseEntity.ok(courseService.updateTitle(courseId, newTitle))
+
+    @PatchMapping("/{courseId}/description")
+    fun updateDescription(@PathVariable courseId: Long, @RequestBody newDescription: String): ResponseEntity<CourseDTO> =
+        ResponseEntity.ok(courseService.updateDescription(courseId, newDescription))
+
+    @PatchMapping("/{courseId}/admin")
+    fun updateAdmin(@PathVariable courseId: Long, @RequestBody newAdminId: Long): ResponseEntity<CourseDTO> =
+        ResponseEntity.ok(courseService.updateAdmin(courseId, newAdminId))
+
+    @PatchMapping("/{courseId}/startDate")
+    fun updateStartDate(@PathVariable courseId: Long, @RequestBody newStartDate: LocalDate): ResponseEntity<CourseDTO> =
+        ResponseEntity.ok(courseService.updateStartDate(courseId, newStartDate))
+
+    @PatchMapping("/{courseId}/endDate")
+    fun updateEndDate(@PathVariable courseId: Long, @RequestBody newEndDate: LocalDate): ResponseEntity<CourseDTO> =
+        ResponseEntity.ok(courseService.updateEndDate(courseId, newEndDate))
+
+    // Добавление пользователя в курс
+    @PatchMapping("/{courseId}/addUser/{userId}")
+    fun addUserToCourse(@PathVariable courseId: Long, @PathVariable userId: Long): ResponseEntity<CourseDTO> =
+        ResponseEntity.ok(courseService.addUserToCourse(courseId, userId))
+
+    // Добавление лекции в курс
+    @PatchMapping("/{courseId}/addLecture/{lectureId}")
+    fun addLectureToCourse(@PathVariable courseId: Long, @PathVariable lectureId: Long): ResponseEntity<CourseDTO> =
+        ResponseEntity.ok(courseService.addLectureToCourse(courseId, lectureId))
+
+
+    // Удаление пользователя из курса
+    @DeleteMapping("/{courseId}/user/{userId}")
+    fun removeUser(@PathVariable courseId: Long, @PathVariable userId: Long): ResponseEntity<CourseDTO> =
+        ResponseEntity.ok(courseService.removeUserFromCourse(courseId, userId))
+
+    // Удаление лекции из курса
+    @DeleteMapping("/{courseId}/lecture/{lectureId}")
+    fun removeLecture(@PathVariable courseId: Long, @PathVariable lectureId: Long): ResponseEntity<CourseDTO> =
+        ResponseEntity.ok(courseService.removeLectureFromCourse(courseId, lectureId))
+
 }
