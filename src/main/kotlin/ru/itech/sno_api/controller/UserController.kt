@@ -39,4 +39,37 @@ class UserController(private val userService: UserService) {
         userService.delete(userId)
         return ResponseEntity.noContent().build()
     }
+
+    // Частичное обновление параметров пользователя
+    @PatchMapping("/{userId}/firstName")
+    fun updateFirstName(@PathVariable userId: Long, @RequestBody firstName: String): ResponseEntity<UserDTO> =
+        ResponseEntity.ok(userService.updateFirstName(userId, firstName))
+
+    @PatchMapping("/{userId}/lastName")
+    fun updateLastName(@PathVariable userId: Long, @RequestBody lastName: String): ResponseEntity<UserDTO> =
+        ResponseEntity.ok(userService.updateLastName(userId, lastName))
+
+    @PatchMapping("/{userId}/middleName")
+    fun updateMiddleName(@PathVariable userId: Long, @RequestBody middleName: String): ResponseEntity<UserDTO> =
+        ResponseEntity.ok(userService.updateMiddleName(userId, middleName))
+
+    @PatchMapping("/{userId}/organization")
+    fun updateOrganization(@PathVariable userId: Long, @RequestBody organizationId: Long?): ResponseEntity<UserDTO> =
+        ResponseEntity.ok(userService.updateOrganization(userId, organizationId))
+
+    @PatchMapping("/{userId}/role")
+    fun updateRole(@PathVariable userId: Long, @RequestBody role: String): ResponseEntity<UserDTO> =
+        ResponseEntity.ok(userService.updateRole(userId, role))
+
+    @PatchMapping("/{userId}/isStudentMifi")
+    fun updateIsStudentMifi(@PathVariable userId: Long, @RequestBody isStudentMifi: Boolean): ResponseEntity<UserDTO> =
+        ResponseEntity.ok(userService.updateIsStudentMifi(userId, isStudentMifi))
+
+    @PatchMapping("/{userId}/twoFactorAuthEnabled")
+    fun updateTwoFactorAuthEnabled(@PathVariable userId: Long, @RequestBody twoFactorAuthEnabled: Boolean): ResponseEntity<UserDTO> =
+        ResponseEntity.ok(userService.updateTwoFactorAuthEnabled(userId, twoFactorAuthEnabled))
+
+    @PatchMapping("/{userId}/email")
+    fun updateEmail(@PathVariable userId: Long, @RequestBody email: String): ResponseEntity<UserDTO> =
+        ResponseEntity.ok(userService.updateEmail(userId, email))
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.itech.sno_api.core.JwtHelper
 import ru.itech.sno_api.core.domain.User
+import ru.itech.sno_api.core.domain.request.PasswordResetRequest
 import ru.itech.sno_api.core.domain.request.user.SignInRequest
 import ru.itech.sno_api.core.domain.request.user.SignUpRequest
 import ru.itech.sno_api.core.util.AuthTokenResponse
@@ -15,7 +16,8 @@ import ru.itech.sno_api.dto.toEntity
 import ru.itech.sno_api.repository.CourseRepository
 import ru.itech.sno_api.repository.UserRepository
 import ru.itech.sno_api.service.AuthService
-
+import java.time.LocalDateTime
+import java.util.UUID
 
 @Service
 @Transactional
@@ -29,9 +31,7 @@ open class AuthServiceImpl(
     override fun authenticate(signInRequest: SignInRequest): AuthTokenResponse {
         val userEntity = userRepository.findByLogin(signInRequest.login)
             .orElseThrow { EntityNotFoundException("User with login ${signInRequest.login} not found") }
-        println(passwordEncoder.encode(signInRequest.password))
-        println(signInRequest.password)
-        println(userEntity.password)
+
         if (!passwordEncoder.matches(signInRequest.password, userEntity.password)) {
             throw BadCredentialsException("Invalid username or password")
         }
@@ -39,8 +39,7 @@ open class AuthServiceImpl(
         val user = User(
             id = userEntity.userId,
             login = userEntity.login,
-            email = userEntity.email,
-
+            email = userEntity.email
         )
 
         val accessToken = jwtHelper.createToken(user, HashMap(), isAccessToken = true)
@@ -79,22 +78,23 @@ open class AuthServiceImpl(
         return AuthTokenResponse(newAccessToken, newRefreshToken)
     }
 
-
     override fun registerUser(signUpRequest: SignUpRequest): AuthTokenResponse {
         if (userRepository.findByEmail(signUpRequest.email).isPresent) {
             throw IllegalArgumentException("User with email ${signUpRequest.email} already exists")
         }
 
-        // Хешируем пароль перед сохранением
         val hashedPassword = passwordEncoder.encode(signUpRequest.password)
 
-        val userEntity = UserDTO(
+        val userDTO = UserDTO(
             login = signUpRequest.login,
             email = signUpRequest.email,
             password = hashedPassword
-        ).toEntity(courseRepository)
+        )
 
+
+        val userEntity = userDTO.toEntity(courseRepository)
         val savedUserEntity = userRepository.save(userEntity)
+
 
         val user = User(
             id = savedUserEntity.userId,
@@ -102,11 +102,42 @@ open class AuthServiceImpl(
             email = savedUserEntity.email
         )
 
+
         val accessToken = jwtHelper.createToken(user, HashMap(), isAccessToken = true)
         val refreshToken = jwtHelper.createToken(user, HashMap(), isAccessToken = false)
 
         return AuthTokenResponse(accessToken, refreshToken)
     }
 
+    override fun requestPasswordReset(email: String) {
+        val user = userRepository.findByEmail(email).orElseThrow {
+            EntityNotFoundException("User with email $email not found")
+        }
 
+        // Генерация токена сброса пароля
+        val resetToken = UUID.randomUUID().toString()
+        /*
+        В работе...
+        Предполагается сохранение токена сброса пароля в базе данных
+        тут будет код для сохранения токена и его срока действия
+        далее отправка ссылки на сброс пароля на указанный email
+        код для отправки email
+         */
+    }
+
+    override fun confirmPasswordReset(request: PasswordResetRequest) {
+        val user = userRepository.findByEmail(request.email).orElseThrow {
+            EntityNotFoundException("User with email ${request.email} not found")
+        }
+
+        /*
+        Проверка валидности токена сброса пароля
+        код для проверки токена и срока его действия
+        обновление пароля
+        */
+
+        val hashedPassword = passwordEncoder.encode(request.newPassword)
+        user.password = hashedPassword
+        userRepository.save(user)
+    }
 }

@@ -1,8 +1,11 @@
+
 package ru.itech.sno_api.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.transaction.Transactional
 import ru.itech.sno_api.entity.OrganizationEntity
+import ru.itech.sno_api.dto.CourseDTO
+import ru.itech.sno_api.entity.CourseEntity
 import ru.itech.sno_api.entity.UserCourseEntity
 import ru.itech.sno_api.entity.UserEntity
 import ru.itech.sno_api.repository.CourseRepository
@@ -43,32 +46,37 @@ data class UserDTO(
     val twoFactorAuthEnabled: Boolean? = null,
 
     @Schema(description = "Набор идентификаторов курсов, ассоциированных с пользователем", example = "[101, 102, 103]", required = false)
-    val courses: Set<Long> = emptySet()
+    val courses: Set<CourseDTO> = emptySet()
 )
 
 @Transactional
 fun UserDTO.toEntity(courseRepository: CourseRepository): UserEntity {
-    val userEntity = UserEntity(
-        userId = this.userId,
+    val userEntity = UserEntity.create(
         login = this.login,
-        email = this.email,
         password = this.password,
+        email = this.email,
         firstName = this.firstName,
         lastName = this.lastName,
         middleName = this.middleName,
         role = this.role,
         isStudentMifi = this.isStudentMifi,
-        twoFactorAuthEnabled = this.twoFactorAuthEnabled,
-        organization = this.organizationId?.let { OrganizationEntity().apply { organizationId = it } }
+        organization = this.organizationId?.let { organizationId ->
+            // Добавьте логику получения OrganizationEntity по organizationId
+            // Например: organizationRepository.findById(organizationId).orElse(null)
+            OrganizationEntity(organizationId = organizationId)
+        },
+        twoFactorAuthEnabled = this.twoFactorAuthEnabled
     )
+    userEntity.userId = this.userId
 
-    // Загружаем курсы из репозитория
-    val courseEntities = this.courses.mapNotNull { courseId ->
-        courseRepository.findById(courseId).orElse(null)
+    // Обновляем связи с курсами, используя Set для избежания дубликатов
+    userEntity.userCourses = this.courses.mapNotNull { courseDto ->
+        // Добавьте логику получения CourseEntity по courseId
+        // Например: courseRepository.findById(courseDto.courseId).orElse(null)
+        CourseEntity(courseId = courseDto.courseId).let { courseEntity ->
+            UserCourseEntity.create( userEntity, courseEntity)
+        }
     }.toMutableSet()
-
-    // Устанавливаем связь между пользователем и курсами
-    userEntity.userCourses = courseEntities.map { UserCourseEntity(user = userEntity, course = it) }.toMutableSet()
 
     return userEntity
 }

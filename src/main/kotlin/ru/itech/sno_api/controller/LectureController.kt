@@ -2,7 +2,6 @@ package ru.itech.sno_api.controller
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.springframework.data.domain.Page
 import org.springframework.web.bind.annotation.*
 import ru.itech.sno_api.dto.LectureDTO
 import ru.itech.sno_api.service.LectureService
@@ -54,4 +53,34 @@ class LectureController(
     @GetMapping("/paginated")
     fun getAllPaginated(@RequestParam("page") pageIndex: Int, @RequestParam("size") pageSize: Int): List<LectureDTO> =
         lectureService.getAllPaginated(pageIndex, pageSize)
+
+    @Operation(method = "Обновление файла лекции")
+    @PatchMapping("/{lectureId}/file/{fileId}")
+    fun updateFile(@PathVariable lectureId: Long, @PathVariable fileId: Long) {
+        lectureService.updateFile(lectureId, fileId)
+    }
+
+    @Operation(method = "Обновление курса лекции")
+    @PatchMapping("/{lectureId}/course/{courseId}")
+    fun updateCourse(@PathVariable lectureId: Long, @PathVariable courseId: Long) {
+        lectureService.updateCourse(lectureId, courseId)
+    }
+
+    @Operation(method = "Обновление лектора лекции")
+    @PatchMapping("/{lectureId}/lecturer/{lecturerId}")
+    fun updateLecturer(@PathVariable lectureId: Long, @PathVariable lecturerId: Long) {
+        lectureService.updateLecturer(lectureId, lecturerId)
+    }
+
+    @Operation(method = "Обновление описания лекции")
+    @PatchMapping("/{lectureId}/description")
+    fun updateDescription(@PathVariable lectureId: Long, @RequestParam description: String) {
+        lectureService.updateDescription(lectureId, description)
+    }
+
+    @Operation(method = "Обновление форума лекции")
+    @PatchMapping("/{lectureId}/forum/{forumId}")
+    fun updateForum(@PathVariable lectureId: Long, @PathVariable forumId: Long) {
+        lectureService.updateForum(lectureId, forumId)
+    }
 }

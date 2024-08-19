@@ -11,6 +11,9 @@ data class LectureDTO(
     @Schema(description = "Идентификатор лекции", example = "1")
     val lectureId: Long,
 
+    @Schema(description = "Идентификатор курса", example = "1", nullable = true)
+    val courseId: Long?, // Add this field
+
     @Schema(description = "Лектор", nullable = true)
     val lecturer: UserDTO?,
 
@@ -40,11 +43,11 @@ fun LectureDTO.toEntity(courseRepository: CourseRepository): LectureEntity {
         title = this@toEntity.title
         description = this@toEntity.description
         date = this@toEntity.date
-        lecturer = this@toEntity.lecturer?.toEntity(courseRepository) ?: null
-        summary = this@toEntity.summary?.toEntity() ?: null
-        forum = this@toEntity.forum?.toEntity() ?: null
-        file = this@toEntity.file?.toEntity() ?: null
+        course = this@toEntity.courseId?.let { courseRepository.findById(it).orElse(null) }
+        lecturer = this@toEntity.lecturer?.toEntity(courseRepository) // Adjust if necessary
+        summary = this@toEntity.summary?.toEntity()
+        forum = this@toEntity.forum?.toEntity()
+        file = this@toEntity.file?.toEntity()
     }
-
     return lecture
 }

@@ -1,9 +1,10 @@
 package ru.itech.sno_api.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
-import jakarta.transaction.Transactional
 import ru.itech.sno_api.entity.CourseEntity
+import ru.itech.sno_api.entity.CourseLectureEntity
 import ru.itech.sno_api.entity.UserCourseEntity
+import ru.itech.sno_api.repository.LectureRepository
 import ru.itech.sno_api.repository.UserRepository
 import java.time.LocalDate
 
@@ -40,32 +41,39 @@ data class CourseDTO(
         startDate = course.startDate,
         endDate = course.endDate,
         adminId = course.admin?.userId,
-        userIds = course.userCourses.mapNotNull { it.userId }.toSet(),
-        lectureIds = course.lectures.map { it.lectureId }.toSet()
+        userIds = course.userCourses.mapNotNull { it.user?.userId }.toSet(),
+        lectureIds = course.courseLectures.map { it.lecture?.lectureId ?: 0 }.toSet() // Use course.courseLectures here
     )
 }
 
-@Transactional
 fun CourseDTO.toEntity(
     existingCourse: CourseEntity? = null,
-    userRepository: UserRepository
+    userRepository: UserRepository,
+    lectureRepository: LectureRepository
 ): CourseEntity {
-    val course = existingCourse ?: CourseEntity()
-    course.courseId = this.courseId
-    course.title = this.title
-    course.description = this.description
-    course.startDate = this.startDate
-    course.endDate = this.endDate
-    course.admin = this.adminId?.let { userRepository.findById(it).orElse(null) }
+    val course = existingCourse ?: CourseEntity.create(
+        title = this.title,
+        description = this.description,
+        startDate = this.startDate,
+        endDate = this.endDate,
+        admin = this.adminId?.let { userRepository.findById(it).orElse(null) }
+    )
 
-    // Создаем новый набор UserCourseEntity для связи с пользователями
+    course.courseId = this.courseId
+
+
     course.userCourses = this.userIds.mapNotNull { userId ->
-        val user = userRepository.findById(userId).orElse(null)
-        if (user != null) {
-            UserCourseEntity(userId = userId, courseId = course.courseId, user = user, course = course)
-        } else {
-            null
+        userRepository.findById(userId).orElse(null)?.let { user ->
+            UserCourseEntity.create(user, course)
         }
+    }.toMutableSet()
+
+    course.courseLectures = lectureRepository.findAllById(this.lectureIds).mapIndexed { index, lecture ->
+        CourseLectureEntity.create(
+            course = course,
+            lecture = lecture,
+            lectureOrder = index + 1
+        )
     }.toMutableSet()
 
     return course

@@ -8,9 +8,7 @@ import ru.itech.sno_api.dto.LectureDTO
 import ru.itech.sno_api.dto.toEntity
 import ru.itech.sno_api.entity.LectureEntity
 import ru.itech.sno_api.entity.toDTO
-import ru.itech.sno_api.repository.CourseRepository
-import ru.itech.sno_api.repository.LectureRepository
-import ru.itech.sno_api.repository.UserRepository
+import ru.itech.sno_api.repository.*
 import ru.itech.sno_api.service.LectureService
 
 @Service
@@ -19,7 +17,9 @@ open class LectureServiceImplementation(
     private val lectureRepository: LectureRepository,
     private val courseRepository: CourseRepository,
     private val userRepository: UserRepository,
-): LectureService {
+    private val filesRepository: FilesRepository,
+    private val forumRepository: ForumRepository
+) : LectureService {
 
     override fun getAll(): List<LectureDTO> {
         return lectureRepository.findAll()
@@ -32,14 +32,11 @@ open class LectureServiceImplementation(
             .toDTO()
     }
 
-
     override fun findByTitle(title: String): List<LectureDTO> =
         lectureRepository.findByTitle(title).map { it.toDTO() }
 
     override fun findByLecturer(lecturerId: Long): List<LectureDTO> =
         lectureRepository.findByLecturerUserId(lecturerId).map { it.toDTO() }
-
-
 
     override fun create(lecture: LectureDTO): LectureDTO {
         return lectureRepository.save(lecture.toEntity(courseRepository))
@@ -67,7 +64,47 @@ open class LectureServiceImplementation(
     }
 
     override fun getAllPaginated(pageIndex: Int, pageSize: Int): List<LectureDTO> {
-        return lectureRepository.findByOrderByLectureId(PageRequest.of(pageIndex, 2))
+        return lectureRepository.findByOrderByLectureId(PageRequest.of(pageIndex, pageSize))
             .map { it.toDTO() }
+    }
+
+    override fun updateFile(lectureId: Long, fileId: Long) {
+        val lecture = lectureRepository.findById(lectureId)
+            .orElseThrow { EntityNotFoundException("Lecture with ID $lectureId not found") }
+
+        lecture.file = filesRepository.findById(fileId).orElse(null)
+        lectureRepository.save(lecture)
+    }
+
+    override fun updateCourse(lectureId: Long, courseId: Long) {
+        val lecture = lectureRepository.findById(lectureId)
+            .orElseThrow { EntityNotFoundException("Lecture with ID $lectureId not found") }
+
+        lecture.course = courseRepository.findById(courseId).orElse(null)
+        lectureRepository.save(lecture)
+    }
+
+    override fun updateLecturer(lectureId: Long, lecturerId: Long) {
+        val lecture = lectureRepository.findById(lectureId)
+            .orElseThrow { EntityNotFoundException("Lecture with ID $lectureId not found") }
+
+        lecture.lecturer = userRepository.findById(lecturerId).orElse(null)
+        lectureRepository.save(lecture)
+    }
+
+    override fun updateDescription(lectureId: Long, description: String) {
+        val lecture = lectureRepository.findById(lectureId)
+            .orElseThrow { EntityNotFoundException("Lecture with ID $lectureId not found") }
+
+        lecture.description = description
+        lectureRepository.save(lecture)
+    }
+
+    override fun updateForum(lectureId: Long, forumId: Long) {
+        val lecture = lectureRepository.findById(lectureId)
+            .orElseThrow { EntityNotFoundException("Lecture with ID $lectureId not found") }
+
+        lecture.forum = forumRepository.findById(forumId).orElse(null)
+        lectureRepository.save(lecture)
     }
 }
