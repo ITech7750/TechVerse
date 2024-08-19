@@ -1,7 +1,8 @@
 package ru.itech.sno_api.service
 
-import org.springframework.stereotype.Service
 import ru.itech.sno_api.dto.LectureDTO
+import java.time.LocalDate
+import org.springframework.stereotype.Service
 
 @Service
 interface LectureService {
@@ -20,4 +21,13 @@ interface LectureService {
     fun updateLecturer(lectureId: Long, lecturerId: Long)
     fun updateDescription(lectureId: Long, description: String)
     fun updateForum(lectureId: Long, forumId: Long)
+
+    fun findAllFilteredAndSorted(
+        title: String?,
+        lecturerId: Long?,
+        startDate: LocalDate?,
+        endDate: LocalDate?,
+        sortBy: String,
+        sortDirection: String
+    ): List<LectureDTO>
 }

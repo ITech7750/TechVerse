@@ -3,6 +3,7 @@ package ru.itech.sno_api.service.implementation
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import ru.itech.sno_api.core.domain.CourseSpecification
 import ru.itech.sno_api.dto.CourseDTO
 import ru.itech.sno_api.entity.*
 import ru.itech.sno_api.repository.CourseRepository
@@ -209,6 +210,27 @@ open class CourseServiceImplementation(
             courseRepository.save(course)
         }
         return course.toDTO()
+    }
+    override fun findAllFilteredAndSorted(
+        title: String?,
+        description: String?,
+        startDate: LocalDate?,
+        endDate: LocalDate?,
+        sortBy: String,
+        sortDirection: String
+    ): List<CourseDTO> {
+        val courses = courseRepository.findAll(CourseSpecification(title, description, startDate, endDate))
+
+
+        // Сортировка по указанному полю
+        return courses.sortedWith(
+            when (sortBy) {
+                "title" -> if (sortDirection == "asc") compareBy { it.title } else compareByDescending { it.title }
+                "startDate" -> if (sortDirection == "asc") compareBy { it.startDate } else compareByDescending { it.startDate }
+                "endDate" -> if (sortDirection == "asc") compareBy { it.endDate } else compareByDescending { it.endDate }
+                else -> compareBy { it.title } // Сортировка по умолчанию
+            }
+        ).map { it.toDTO() }
     }
 
 }

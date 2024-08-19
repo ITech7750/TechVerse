@@ -4,9 +4,19 @@ package ru.itech.sno_api.service
 import ru.itech.sno_api.dto.CourseDTO
 import java.time.LocalDate
 import java.util.*
+import org.springframework.stereotype.Service
 
+@Service
 interface CourseService {
     fun findAll(): List<CourseDTO>
+    fun findAllFilteredAndSorted(
+        title: String?,
+        description: String?,
+        startDate: LocalDate?,
+        endDate: LocalDate?,
+        sortBy: String,
+        sortDirection: String
+    ): List<CourseDTO>
     fun findById(courseId: Long): CourseDTO
     fun create(courseDTO: CourseDTO): CourseDTO
     fun update(courseId: Long, courseDTO: CourseDTO): CourseDTO

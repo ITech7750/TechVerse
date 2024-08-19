@@ -1,15 +1,18 @@
 package ru.itech.sno_api.service.implementation
 
 import jakarta.persistence.EntityNotFoundException
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import ru.itech.sno_api.core.domain.LectureSpecification
 import ru.itech.sno_api.dto.LectureDTO
 import ru.itech.sno_api.dto.toEntity
 import ru.itech.sno_api.entity.LectureEntity
 import ru.itech.sno_api.entity.toDTO
 import ru.itech.sno_api.repository.*
 import ru.itech.sno_api.service.LectureService
+import java.time.LocalDate
 
 @Service
 @Transactional
@@ -106,5 +109,28 @@ open class LectureServiceImplementation(
 
         lecture.forum = forumRepository.findById(forumId).orElse(null)
         lectureRepository.save(lecture)
+    }
+
+    override fun findAllFilteredAndSorted(
+        title: String?,
+        lecturerId: Long?,
+        startDate: LocalDate?,
+        endDate: LocalDate?,
+        sortBy: String,
+        sortDirection: String
+    ): List<LectureDTO> {
+        val lectures = lectureRepository.findAll(
+            LectureSpecification(title, lecturerId, startDate, endDate)
+        )
+
+        val direction = sortDirection?.let { if (it.equals("desc", ignoreCase = true)) "desc" else "asc" } ?: "asc"
+
+        return lectures.sortedWith(
+            when (sortBy) {
+                "title" -> if (direction == "asc") compareBy<LectureEntity> { it.title } else compareByDescending { it.title }
+                "date" -> if (direction == "asc") compareBy<LectureEntity> { it.date } else compareByDescending { it.date }
+                else -> compareBy<LectureEntity> { it.title } // Default sorting
+            }
+        ).map { it.toDTO() }
     }
 }
