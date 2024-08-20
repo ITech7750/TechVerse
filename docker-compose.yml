@@ -1,41 +1,31 @@
 version: '3.8'
 services:
-  db:
-    image: mysql:5.7
+  mysql_sno_api:
+    image: mysql:8.0
     ports:
-      - "3307:3306"
+      - "${MYSQL_PORT}:3306"
     environment:
-      MYSQL_DATABASE: app_db
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: 1357
-      MYSQL_ROOT_PASSWORD: 1357
+      - MYSQL_DATABASE="${MYSQL_DATABASE}"
+      - MYSQL_USER="${MYSQL_USER}"
+      - MYSQL_PASSWORD="${MYSQL_PASSWORD}"
+      - MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD}"
     volumes:
       - db-data:/var/lib/mysql
     networks:
       - backend
-    healthcheck:
-      test: [ "CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uadmin -p1357" ]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
+    env_file: ".env"
 
-  app:
+  sno_api_app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8081:8080"
+      - "${SNO_API_BACKEND_PORT}:${SNO_API_BACKEND_PORT}"
     depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/app_db?useSSL=false&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: 1357
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      - mysql_sno_api
     networks:
       - backend
+    env_file: ".env"
 
 networks:
   backend:
