@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.transaction.Transactional
 import ru.itech.sno_api.entity.LectureEntity
 import ru.itech.sno_api.repository.CourseRepository
-import java.util.*
+import java.time.LocalDate
 
 @Schema(description = "Лекция")
 data class LectureDTO(
@@ -24,7 +24,7 @@ data class LectureDTO(
     val description: String,
 
     @Schema(description = "Дата", nullable = true, type = "string", format = "date-time", example = "2022-12-01T15:00:00Z")
-    val date: Date?,
+    val date: LocalDate,
 
     @Schema(description = "Конспект", nullable = true)
     val summary: SummaryDTO?,
