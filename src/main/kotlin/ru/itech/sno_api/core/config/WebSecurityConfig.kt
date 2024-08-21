@@ -19,7 +19,6 @@ import ru.itech.sno_api.core.AuthTokenFilter
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
-import java.util.Arrays
 
 @EnableWebSecurity
 @Configuration
@@ -45,28 +44,23 @@ open class WebSecurityConfig {
         return BCryptPasswordEncoder()
     }
 
-
     @Bean
     open fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
         configuration.apply {
-            addAllowedOrigin(frontendHost)
-
+            addAllowedOriginPattern("*")  // доступ с любых доменов
             HttpMethod.values().forEach {
-                addAllowedMethod(it)
+                addAllowedMethod(it) // все методы
             }
-
-            addAllowedHeader("*")
-
-            allowCredentials = true
-            maxAge = 3600L
+            addAllowedHeader("*") //  все заголовки
+            allowCredentials = true // отправка кук
+            maxAge = 3600L // время жизни кэша предзапросов (preflight)
         }
 
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
         return source
     }
-
 
     @Bean
     open fun filterChain(http: HttpSecurity): SecurityFilterChain {
