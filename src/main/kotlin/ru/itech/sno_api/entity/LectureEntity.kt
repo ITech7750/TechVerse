@@ -2,8 +2,7 @@ package ru.itech.sno_api.entity
 
 import jakarta.persistence.*
 import ru.itech.sno_api.dto.LectureDTO
-
-import java.util.*
+import java.time.LocalDate
 
 @Entity
 @Table(name = "lecture")
@@ -28,7 +27,7 @@ class LectureEntity(
     var description: String = "",
 
     @Column(name = "date")
-    var date: Date? = null,
+    var date: LocalDate? = null,
 
     @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
     @JoinColumn(name = "summary_id")
@@ -50,7 +49,7 @@ fun LectureEntity.toDTO(): LectureDTO {
         lecturer = this.lecturer?.toDTO(),
         title = this.title,
         description = this.description,
-        date = this.date,
+        date = this.date?:LocalDate.now(),
         summary = this.summary?.toDTO(),
         forum = this.forum?.toDTO(),
         file = this.file?.toDTO()
