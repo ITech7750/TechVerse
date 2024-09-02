@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/auth-service" name="auth-service">
+                <projects>
+                  <project path="$PROJECT_DIR$/auth-service" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/auth-service/buildSrc" name="buildSrc">
+                <projects>
+                  <project path="$PROJECT_DIR$/auth-service/buildSrc" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/eureka-server" name="eureka-server-1">
+                <projects>
+                  <project path="$PROJECT_DIR$/eureka-server" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/gateway" name="gateway">
+                <projects>
+                  <project path="$PROJECT_DIR$/gateway" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/lecture-service" name="lecture-service">
+                <projects>
+                  <project path="$PROJECT_DIR$/lecture-service" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/user-service" name="user-service">
+                <projects>
+                  <project path="$PROJECT_DIR$/user-service" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/user-service/buildSrc" name="buildSrc">
+                <projects>
+                  <project path="$PROJECT_DIR$/user-service/buildSrc" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/video-stream-service" name="auth-service-2">
+                <projects>
+                  <project path="$PROJECT_DIR$/video-stream-service" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/video-stream-service/buildSrc" name="buildSrc">
+                <projects>
+                  <project path="$PROJECT_DIR$/video-stream-service/buildSrc" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/auth-service" />
+            <option value="$PROJECT_DIR$/auth-service-2" />
+            <option value="$PROJECT_DIR$/auth-service/buildSrc" />
+            <option value="$PROJECT_DIR$/eureka-server" />
+            <option value="$PROJECT_DIR$/eureka-server-2" />
+            <option value="$PROJECT_DIR$/eureka-server-3" />
+            <option value="$PROJECT_DIR$/gateway" />
+            <option value="$PROJECT_DIR$/lecture-service" />
+            <option value="$PROJECT_DIR$/main-service" />
+            <option value="$PROJECT_DIR$/user-service" />
+            <option value="$PROJECT_DIR$/user-service/buildSrc" />
+            <option value="$PROJECT_DIR$/video-stream-service" />
+            <option value="$PROJECT_DIR$/video-stream-service/buildSrc" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

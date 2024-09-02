@@ -1,0 +1,109 @@
+version: '3.8'
+
+networks:
+  server-network:
+  backend:
+
+services:
+  mysql-db:
+    image: mysql:5.7
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 1357
+      MYSQL_ROOT_PASSWORD: 1357
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - server-network
+      - backend
+    restart: unless-stopped
+
+  eureka-server:
+    build: ./eureka-server
+    ports:
+      - "8761:8761"
+    depends_on:
+      - mysql-db
+    networks:
+      - server-network
+      - backend
+
+  user-service:
+    hostname: userservice
+    build: ./user-service
+    depends_on:
+      - mysql-db
+    ports:
+      - "8003:8003"
+    networks:
+      - server-network
+      - backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3307/app_db?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: 1357
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  auth-service:
+    hostname: authservice
+    build: ./auth-service
+    depends_on:
+      - mysql-db
+    ports:
+      - "8001:8001"
+    networks:
+      - server-network
+      - backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3307/app_db?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: 1357
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  lecture-service:
+    hostname: lectureservice
+    build: ./lecture-service
+    depends_on:
+      - mysql-db
+    ports:
+      - "8002:8002"
+    networks:
+      - server-network
+      - backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3307/app_db?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: 1357
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  video-stream-service:
+    hostname: videostreamservice
+    build: ./video-stream-service
+    depends_on:
+      - mysql-db
+    ports:
+      - "8004:8004"
+    networks:
+      - server-network
+      - backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3307/app_db?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: 1357
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "8765:8765"
+    depends_on:
+      - mysql-db
+    networks:
+      - server-network
+      - backend
+
+volumes:
+  db-data:

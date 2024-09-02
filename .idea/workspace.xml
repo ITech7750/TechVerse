@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8dbd8ca2-2a9b-498e-8c31-0da338a3bbc5" name="Changes" comment="corrected" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "ITech7750"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/ITech7750/sno_api.git",
+    "accountId": "e5e1a1db-382a-496c-99b7-cc1fc6b44405"
+  }
+}]]></component>
+  <component name="KotlinScriptingSettings">
+    <scriptDefinition className="org.jetbrains.kotlin.scripting.resolve.KotlinScriptDefinitionFromAnnotatedTemplate" definitionName="KotlinBuildScript">
+      <order>2147483647</order>
+      <autoReloadConfigurations>true</autoReloadConfigurations>
+    </scriptDefinition>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2fXzAVC1omcRokpk05tdQB3lDAo" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.docker-compose.yaml.auth-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yaml.eureka-server: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yaml.gateway: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yaml.lecture-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yaml.mysql-db: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yaml.user-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yaml.video-stream-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yaml: Compose Deployment.executor": "Run",
+    "Gradle.Build microservices-sno-api.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.AuthServiceApplication (1).executor": "Run",
+    "Spring Boot.AuthServiceApplication (2).executor": "Run",
+    "Spring Boot.AuthServiceApplication.executor": "Run",
+    "Spring Boot.AuthServiceApplication2.executor": "Run",
+    "Spring Boot.EurekaServerApplication (1).executor": "Run",
+    "Spring Boot.EurekaServerApplication.executor": "Run",
+    "Spring Boot.EurekaServerApplication1.executor": "Run",
+    "Spring Boot.EurekaServerApplication2.executor": "Run",
+    "Spring Boot.EurekaServerApplication3.executor": "Run",
+    "Spring Boot.GatewayApplication (1).executor": "Run",
+    "Spring Boot.GatewayApplication.executor": "Run",
+    "Spring Boot.LectureServiceApplication.executor": "Run",
+    "Spring Boot.MainServiceApplication.executor": "Run",
+    "Spring Boot.SnoApiApplication (1).executor": "Run",
+    "Spring Boot.SnoApiApplication (2).executor": "Run",
+    "Spring Boot.SnoApiApplication (3).executor": "Run",
+    "Spring Boot.SnoApiApplication.executor": "Run",
+    "Spring Boot.UserServiceApiApplication.executor": "Run",
+    "Spring Boot.VideoStreamApplication.executor": "Run",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/itech/AndroidStudioProjects/microservices-sno-api/video-stream-service",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.ktlint-plugin",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/video-stream-service" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/eureka-service-1/src" />
+      <recent name="$PROJECT_DIR$/auth-service" />
+      <recent name="$PROJECT_DIR$/user-service" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/user-service" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="ru.itech.sno_api.repository" />
+      <recent name="ru.itech.sno_api.controller" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.GatewayApplication">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="auth-service.buildSrc" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="auth-service.buildSrc" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthServiceApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="auth-service-2.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.itech.sno_api.AuthServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthServiceApplication (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="auth-service-2.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.itech.sno_api.AuthServiceApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.itech.sno_api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="auth-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.itech.sno_api.AuthServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthServiceApplication2" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="auth-service-2.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.itech.sno_api.AuthServiceApplication2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.itech.sno_api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EurekaServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="eureka-server-1.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.eurekaserver.EurekaServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EurekaServerApplication1" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="eureka-server-1.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.eurekaserver.EurekaServerApplication1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.eurekaserver.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EurekaServerApplication2" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="sno-rest-api-microservice.eureka-server-2.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.eurekaserver.EurekaServerApplication2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EurekaServerApplication3" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="sno-rest-api-microservice.eureka-server-3.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.eurekaserver.EurekaServerApplication3" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="gateway.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.gateway.GatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LectureServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="lecture-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.itech.sno_api.LectureServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="user-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.itech.sno_api.MainServiceApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.itech.sno_api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="user-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.itech.sno_api.UserServiceApiApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="VideoStreamApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="video-stream-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.itech.sno_api.VideoStreamApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.MainServiceApplication" />
+        <item itemvalue="Spring Boot.AuthServiceApplication2" />
+        <item itemvalue="Spring Boot.AuthServiceApplication (2)" />
+        <item itemvalue="Spring Boot.EurekaServerApplication1" />
+        <item itemvalue="Docker.docker-compose.yaml: Compose Deployment" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StandaloneScriptsStorage">
+    <option name="files">
+      <set>
+        <option value="$PROJECT_DIR$/auth-service/settings.gradle.kts" />
+        <option value="$PROJECT_DIR$/eureka-server-3/build.gradle.kts" />
+        <option value="$PROJECT_DIR$/main-service/build.gradle.kts" />
+      </set>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8dbd8ca2-2a9b-498e-8c31-0da338a3bbc5" name="Changes" comment="" />
+      <created>1713962067896</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1713962067896</updated>
+      <workItem from="1713962068918" duration="14975000" />
+      <workItem from="1713977371224" duration="2617000" />
+      <workItem from="1713980039476" duration="5427000" />
+      <workItem from="1713985896496" duration="11705000" />
+      <workItem from="1714232811253" duration="1948000" />
+      <workItem from="1714982784648" duration="1660000" />
+      <workItem from="1715001362959" duration="604000" />
+      <workItem from="1715028450126" duration="87000" />
+      <workItem from="1715028551611" duration="55000" />
+      <workItem from="1715059246323" duration="5356000" />
+      <workItem from="1715068967552" duration="2682000" />
+      <workItem from="1715107338185" duration="1766000" />
+      <workItem from="1715883474483" duration="140000" />
+      <workItem from="1716226877230" duration="389000" />
+      <workItem from="1716826060395" duration="698000" />
+      <workItem from="1718876759368" duration="5000" />
+      <workItem from="1719043810358" duration="600000" />
+      <workItem from="1720552503404" duration="321000" />
+      <workItem from="1720553077842" duration="868000" />
+      <workItem from="1720554361879" duration="300000" />
+      <workItem from="1721891774079" duration="936000" />
+      <workItem from="1721892808736" duration="602000" />
+      <workItem from="1722319335956" duration="598000" />
+      <workItem from="1723046824141" duration="74000" />
+      <workItem from="1723224841746" duration="31000" />
+      <workItem from="1723224902204" duration="1209000" />
+      <workItem from="1723893323297" duration="529000" />
+      <workItem from="1723918578497" duration="614000" />
+      <workItem from="1723972142102" duration="599000" />
+      <workItem from="1723996069553" duration="473000" />
+      <workItem from="1723997184248" duration="1351000" />
+      <workItem from="1724247808323" duration="2501000" />
+      <workItem from="1724263460087" duration="655000" />
+      <workItem from="1724439590947" duration="629000" />
+      <workItem from="1724444136488" duration="1326000" />
+      <workItem from="1724491355671" duration="1204000" />
+      <workItem from="1724699498525" duration="603000" />
+      <workItem from="1724942085950" duration="1944000" />
+      <workItem from="1725275679767" duration="2065000" />
+      <workItem from="1725277769661" duration="2372000" />
+      <workItem from="1725280153239" duration="15208000" />
+      <workItem from="1725296709615" duration="4545000" />
+    </task>
+    <task id="LOCAL-00001" summary="corrected">
+      <option name="closed" value="true" />
+      <created>1715071831369</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1715071831369</updated>
+    </task>
+    <task id="LOCAL-00002" summary="corrected">
+      <option name="closed" value="true" />
+      <created>1715114737400</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715114737400</updated>
+    </task>
+    <task id="LOCAL-00003" summary="corrected">
+      <option name="closed" value="true" />
+      <created>1715114786590</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1715114786590</updated>
+    </task>
+    <task id="LOCAL-00004" summary="corrected">
+      <option name="closed" value="true" />
+      <created>1715114812293</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1715114812293</updated>
+    </task>
+    <task id="LOCAL-00005" summary="corrected">
+      <option name="closed" value="true" />
+      <created>1715114826322</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1715114826322</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="microservices" />
+    <MESSAGE value="Добавлены микросервисы" />
+    <MESSAGE value="corrected" />
+    <option name="LAST_COMMIT_MESSAGE" value="corrected" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
