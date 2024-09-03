@@ -3,13 +3,12 @@ plugins {
 }
 rootProject.name = "sno-rest-api-microservice"
 
-includeBuild("eureka-server")
-includeBuild("gateway")
-includeBuild("user-service")
-includeBuild("video-stream-service")
-includeBuild("lecture-service")
-includeBuild("auth-service")
+include("eureka-server-1")
 include("eureka-server-2")
 include("eureka-server-3")
-include("main-service")
+include("gateway")
+include("auth-service-1")
 include("auth-service-2")
+include("auth-service-3")
+include("auth-service-1")
+include("main-service")

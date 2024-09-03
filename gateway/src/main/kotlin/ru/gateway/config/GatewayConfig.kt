@@ -5,6 +5,8 @@ import org.springframework.cloud.gateway.route.RouteLocator
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatus
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
@@ -39,14 +41,14 @@ class GatewayConfig {
                         f.retry { retryConfig ->
                             retryConfig
                                 .setRetries(3)
-                                .setStatuses(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR)
-                                .setMethods(org.springframework.http.HttpMethod.GET, org.springframework.http.HttpMethod.POST)
+                                .setStatuses(HttpStatus.INTERNAL_SERVER_ERROR)
+                                .setMethods(HttpMethod.GET, HttpMethod.POST)
                                 .setBackoff(
                                     BackoffConfig(
-                                        Duration.ofMillis(500), // firstBackoff
-                                        Duration.ofSeconds(2), // maxBackoff
-                                        2, // factor
-                                        true, // basedOnPreviousValue
+                                        Duration.ofMillis(500),
+                                        Duration.ofSeconds(2),
+                                        2,
+                                        true,
                                     ),
                                 )
                         }
@@ -56,14 +58,6 @@ class GatewayConfig {
                                 .setFallbackUri("forward:/fallback/auth")
                         }
                     }.uri("lb://auth-service")
-            }.route("swagger_route") { r ->
-                r
-                    .path("/swagger-ui/**")
-                    .uri("lb://auth-service")
-            }.route("api-docs_route") { r ->
-                r
-                    .path("/v3/api-docs/**")
-                    .uri("lb://auth-service")
             }.build()
 
     @Bean

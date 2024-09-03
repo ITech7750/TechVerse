@@ -49,7 +49,7 @@ services:
 
   auth-service:
     hostname: authservice
-    build: ./auth-service
+    build: auth-service-2
     depends_on:
       - mysql-db
     ports:

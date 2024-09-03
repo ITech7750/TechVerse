@@ -1,2 +1,2 @@
-group = "ru.itechn"
+group = "ru.itech"
 version = "1.0-SNAPSHOT"
