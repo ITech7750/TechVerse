@@ -1,109 +1,131 @@
 version: '3.8'
 
-networks:
-  server-network:
-  backend:
-
 services:
-  mysql-db:
-    image: mysql:5.7
-    ports:
-      - "3307:3306"
+  # Основная база данных PostgreSQL
+  postgres-db-master:
+    image: postgres:15-alpine
+    container_name: postgres-db-master
     environment:
-      MYSQL_DATABASE: app_db
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: 1357
-      MYSQL_ROOT_PASSWORD: 1357
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1357
+      POSTGRES_DB: postgres
+    ports:
+      - "5434:5432"
     volumes:
-      - db-data:/var/lib/mysql
+      - postgres-master-data:/var/lib/postgresql/data
     networks:
-      - server-network
-      - backend
-    restart: unless-stopped
+      - app-network
+    command: >
+      postgres -c wal_level=replica -c max_wal_senders=3 -c max_replication_slots=3
 
+  # Реплика базы данных PostgreSQL
+  postgres-db-replica:
+    image: postgres:15-alpine
+    container_name: postgres-db-replica
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1357
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres-replica-data:/var/lib/postgresql/data
+    depends_on:
+      - postgres-db-master
+    networks:
+      - app-network
+    command: >
+      sh -c 'pg_basebackup -h postgres-db-master -D /var/lib/postgresql/data -U postgres -Fp -Xs -P -R && exec postgres'
+
+  # Сервис Eureka
   eureka-server:
-    build: ./eureka-server
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    container_name: eureka-server
     ports:
       - "8761:8761"
-    depends_on:
-      - mysql-db
+    environment:
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: 'false'
+      EUREKA_CLIENT_FETCH_REGISTRY: 'false'
     networks:
-      - server-network
-      - backend
+      - app-network
 
-  user-service:
-    hostname: userservice
-    build: ./user-service
+  # Первый экземпляр Auth Service
+  auth-service-1:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service-1
     depends_on:
-      - mysql-db
+      - postgres-db-master
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db-master:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1357
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING_APPLICATION_NAME: auth-service
+    ports:
+      - "8001:8080"
+    networks:
+      - app-network
+
+  # Второй экземпляр Auth Service
+  auth-service-2:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service-2
+    depends_on:
+      - postgres-db-master
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db-master:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1357
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING_APPLICATION_NAME: auth-service
+    ports:
+      - "8002:8080"
+    networks:
+      - app-network
+
+  # Сервис Gateway
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    container_name: gateway
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING_APPLICATION_NAME: gateway
+    ports:
+      - "8765:8765"
+    networks:
+      - app-network
+
+  # Load Balancer
+  load-balancer:
+    build:
+      context: ./load-balancer
+      dockerfile: Dockerfile
+    container_name: load-balancer
+    depends_on:
+      - auth-service-1
+      - auth-service-2
     ports:
       - "8003:8003"
     networks:
-      - server-network
-      - backend
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3307/app_db?useSSL=false&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: 1357
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      - app-network
 
-  auth-service:
-    hostname: authservice
-    build: auth-service-2
-    depends_on:
-      - mysql-db
-    ports:
-      - "8001:8001"
-    networks:
-      - server-network
-      - backend
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3307/app_db?useSSL=false&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: 1357
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-
-  lecture-service:
-    hostname: lectureservice
-    build: ./lecture-service
-    depends_on:
-      - mysql-db
-    ports:
-      - "8002:8002"
-    networks:
-      - server-network
-      - backend
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3307/app_db?useSSL=false&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: 1357
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-
-  video-stream-service:
-    hostname: videostreamservice
-    build: ./video-stream-service
-    depends_on:
-      - mysql-db
-    ports:
-      - "8004:8004"
-    networks:
-      - server-network
-      - backend
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3307/app_db?useSSL=false&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: 1357
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-
-  gateway:
-    build: ./gateway
-    ports:
-      - "8765:8765"
-    depends_on:
-      - mysql-db
-    networks:
-      - server-network
-      - backend
-
+# Хранилища для баз данных PostgreSQL
 volumes:
-  db-data:
+  postgres-master-data:
+  postgres-replica-data:
+
+# Общая сеть для всех сервисов
+networks:
+  app-network:
+    driver: bridge

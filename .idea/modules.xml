@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/auth-service-1.iml" filepath="$PROJECT_DIR$/auth-service-1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/video-stream-service/buildSrc/auth-service-2.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/video-stream-service/buildSrc/auth-service-2.buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/video-stream-service/buildSrc/auth-service-2.buildSrc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/video-stream-service/buildSrc/auth-service-2.buildSrc.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/video-stream-service/buildSrc/auth-service-2.buildSrc.test.iml" filepath="$PROJECT_DIR$/.idea/modules/video-stream-service/buildSrc/auth-service-2.buildSrc.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/video-stream-service/auth-service-2.main.iml" filepath="$PROJECT_DIR$/.idea/modules/video-stream-service/auth-service-2.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/video-stream-service/auth-service-2.test.iml" filepath="$PROJECT_DIR$/.idea/modules/video-stream-service/auth-service-2.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/auth-service-3.iml" filepath="$PROJECT_DIR$/auth-service-3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service/buildSrc/auth-service.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service/buildSrc/auth-service.buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service/buildSrc/auth-service.buildSrc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service/buildSrc/auth-service.buildSrc.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service/buildSrc/auth-service.buildSrc.test.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service/buildSrc/auth-service.buildSrc.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service/auth-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service/auth-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service/auth-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service/auth-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eureka-server-1.iml" filepath="$PROJECT_DIR$/eureka-server-1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server/eureka-server-1.main.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server/eureka-server-1.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server/eureka-server-1.test.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server/eureka-server-1.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway/gateway.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway/gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway/gateway.main.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway/gateway.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway/gateway.test.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway/gateway.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lecture-service/lecture-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lecture-service/lecture-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lecture-service/lecture-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/lecture-service/lecture-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/main-service.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/main-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service-1/microservices-sno-api.sno-rest-api-microservice.auth-service-1.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service-1/microservices-sno-api.sno-rest-api-microservice.auth-service-1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service-1/sno-rest-api-microservice.auth-service-1.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service-1/sno-rest-api-microservice.auth-service-1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service-1/sno-rest-api-microservice.auth-service-1.main.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service-1/sno-rest-api-microservice.auth-service-1.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service-1/sno-rest-api-microservice.auth-service-1.test.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service-1/sno-rest-api-microservice.auth-service-1.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service-3/sno-rest-api-microservice.auth-service-3.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service-3/sno-rest-api-microservice.auth-service-3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service-3/sno-rest-api-microservice.auth-service-3.main.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service-3/sno-rest-api-microservice.auth-service-3.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service-3/sno-rest-api-microservice.auth-service-3.test.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service-3/sno-rest-api-microservice.auth-service-3.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server-1/sno-rest-api-microservice.eureka-server-1.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server-1/sno-rest-api-microservice.eureka-server-1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server-1/sno-rest-api-microservice.eureka-server-1.main.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server-1/sno-rest-api-microservice.eureka-server-1.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server-1/sno-rest-api-microservice.eureka-server-1.test.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server-1/sno-rest-api-microservice.eureka-server-1.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server-2/sno-rest-api-microservice.eureka-server-2.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server-2/sno-rest-api-microservice.eureka-server-2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server-2/sno-rest-api-microservice.eureka-server-2.main.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server-2/sno-rest-api-microservice.eureka-server-2.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server-2/sno-rest-api-microservice.eureka-server-2.test.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server-2/sno-rest-api-microservice.eureka-server-2.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server-3/sno-rest-api-microservice.eureka-server-3.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server-3/sno-rest-api-microservice.eureka-server-3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server-3/sno-rest-api-microservice.eureka-server-3.main.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server-3/sno-rest-api-microservice.eureka-server-3.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server-3/sno-rest-api-microservice.eureka-server-3.test.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server-3/sno-rest-api-microservice.eureka-server-3.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main-service/sno-rest-api-microservice.main-service.iml" filepath="$PROJECT_DIR$/.idea/modules/main-service/sno-rest-api-microservice.main-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main-service/sno-rest-api-microservice.main-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/main-service/sno-rest-api-microservice.main-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main-service/sno-rest-api-microservice.main-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/main-service/sno-rest-api-microservice.main-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/buildSrc/user-service.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/buildSrc/user-service.buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/buildSrc/user-service.buildSrc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/buildSrc/user-service.buildSrc.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/buildSrc/user-service.buildSrc.test.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/buildSrc/user-service.buildSrc.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/user-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/user-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/user-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/user-service.test.iml" />
+    </modules>
+  </component>
+</project>
